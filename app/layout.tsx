@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PWARegister from "@/components/PWARegister";
+import AITutorWidget from "@/components/AITutorWidget";
 
 export const viewport = {
   width: "device-width",
@@ -13,8 +14,8 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: "Study With Arup | West Bengal Competitive Exam Prep",
-  description: "Prepare smart for WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with Study With Arup.",
-  keywords: ["WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With Arup"],
+  description: "Prepare smart for WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with Study With Arup AI Assistant.",
+  keywords: ["WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With Arup", "AI Tutor"],
   authors: [{ name: "Study With Arup Team" }],
   manifest: "/manifest.json",
   robots: "index, follow",
@@ -40,6 +41,7 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
+          <AITutorWidget />
           <Footer />
         </ThemeProvider>
       </body>

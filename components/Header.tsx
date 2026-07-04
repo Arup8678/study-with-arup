@@ -9,6 +9,7 @@ import { useTheme } from "./ThemeProvider";
 const NAV_LINKS = [
   { href: "/",               label: "Home" },
   { href: "/exams",          label: "Exams" },
+  { href: "/ai-tutor",        label: "🤖 AI Tutor" },
   { href: "/current-affairs", label: "Current Affairs" },
   { href: "/contact",        label: "Contact Us" },
 ];
