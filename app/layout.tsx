@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#2563eb",
 };
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   description: "Prepare smart for WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with Study With Arup.",
   keywords: ["WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With Arup"],
   authors: [{ name: "Study With Arup Team" }],
+  manifest: "/manifest.json",
   robots: "index, follow",
   openGraph: {
     title: "Study With Arup | West Bengal Exam Prep Platform",
