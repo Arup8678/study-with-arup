@@ -1,24 +1,74 @@
 {
+  "id": "/",
   "name": "Study With Arup",
   "short_name": "StudyWithArup",
-  "description": "Best Exam Preparation Platform for WBP Constable, SSC GD, Agniveer Army & WB Panchayat",
+  "description": "Best Exam Preparation Platform for WBP Constable, SSC GD, Agniveer Army & WB Panchayat exams in West Bengal.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#0f172a",
   "theme_color": "#2563eb",
-  "orientation": "portrait",
+  "orientation": "any",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
   "icons": [
     {
       "src": "/army-hero.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/army-hero.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/army-hero.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/army-hero.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/army-hero.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Study With Arup Desktop Home"
+    },
+    {
+      "src": "/army-hero.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Study With Arup Mobile Home"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Target Exams",
+      "short_name": "Exams",
+      "description": "Select target competitive exam",
+      "url": "/exams",
+      "icons": [{ "src": "/army-hero.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Current Affairs",
+      "short_name": "News",
+      "description": "Daily current affairs updates",
+      "url": "/current-affairs",
+      "icons": [{ "src": "/army-hero.png", "sizes": "192x192" }]
     }
   ]
 }

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PWARegister from "@/components/PWARegister";
 
 export const viewport = {
   width: "device-width",
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased min-h-screen flex flex-col font-body">
         <ThemeProvider>
+          <PWARegister />
           <Header />
           <main className="flex-grow">
             {children}
