@@ -245,7 +245,19 @@ export default function AdminPage() {
                 <select value={qTopic} onChange={e => setQTopic(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-800 dark:text-white outline-none focus:border-blue-500">
                   <option value="">Select Topic</option>
                   {topics.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                  <option disabled>── Built-in topics ──</option>
+                  <option disabled>── General Knowledge Sub-categories ──</option>
+                  <option value="history-ancient">Ancient History (প্রাচীন ভারত)</option>
+                  <option value="history-medieval">Medieval History (মধ্যযুগীয় ভারত)</option>
+                  <option value="history-modern">Modern History (আধুনিক ভারত)</option>
+                  <option value="geography-physical">Physical Geography (ভৌত ভূগোল)</option>
+                  <option value="geography-india">Geography of India (ভারতের ভূগোল)</option>
+                  <option value="geography-wb">Geography of WB (পশ্চিমবঙ্গের ভূগোল)</option>
+                  <option value="science-physics">Physics (পদার্থবিদ্যা)</option>
+                  <option value="science-chemistry">Chemistry (রসায়ন)</option>
+                  <option value="science-biology">Biology (জীববিজ্ঞান)</option>
+                  <option value="indian-polity-constitution">Polity (রাষ্ট্রবিজ্ঞান)</option>
+                  <option value="indian-economics-main">Economics (অর্থনীতি)</option>
+                  <option value="static-gk-main">Static GK (স্ট্যাটিক জিকে)</option>
                 </select>
                 <textarea value={qText} onChange={e => setQText(e.target.value)} placeholder="Question text" rows={3} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-800 dark:text-white outline-none focus:border-blue-500 resize-none" />
                 {qOpts.map((opt, i) => (

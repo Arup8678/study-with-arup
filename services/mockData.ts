@@ -459,8 +459,8 @@ export const EXAMS_DATA: Exam[] = [
 export const SUBJECTS_DATA: Subject[] = [
   {
     id: "gk-general",
-    name: "General Knowledge & Current Affairs",
-    description: "History, Geography, Polity, Economy, Sports, Awards & Current Events",
+    name: "General Knowledge (সাধারণ জ্ঞান)",
+    description: "History, Geography, Polity, General Science, Economics & Static GK",
     iconName: "Globe",
     questionCount: 0,
     progress: 0,
@@ -527,47 +527,340 @@ export const SUBJECTS_DATA: Subject[] = [
 // ─────────────────────────────────────────────
 export const TOPICS_DATA: Topic[] = [
 
-  // ── GK GENERAL ──────────────────────────────
+  // ── GENERAL KNOWLEDGE TOPICS ──────────────────
   {
-    id: "indian-history-freedom",
+    id: "history-ancient",
     subjectId: "gk-general",
-    name: "Indian National Movement (স্বাধীনতা আন্দোলন)",
-    description: "Freedom struggle milestones, major movements, leaders and Acts",
+    name: "Ancient History (প্রাচীন ভারত)",
+    description: "Indus Valley Civilization, Vedic Period, Mahajanapadas, Mauryan & Gupta Empires, Buddhism & Jainism",
     questionsCount: 0,
     referenceLinks: [
-      { label: "NCERT History — Class 10 (Free PDF)", url: "https://ncert.nic.in/textbook.php?jess2=0-9" },
-      { label: "Wikipedia — Indian independence movement", url: "https://en.wikipedia.org/wiki/Indian_independence_movement" }
+      { label: "NCERT Ancient India Class 11", url: "https://ncert.nic.in" },
+      { label: "Wikipedia — Ancient India", url: "https://en.wikipedia.org/wiki/Ancient_India" }
     ],
-    notesContent: `## Indian National Movement — Key Points
+    notesContent: `## Ancient Indian History — Core Notes
 
-### Indian National Congress (INC)
-- **Founded**: December 1885, Bombay
-- **Founder**: A.O. Hume (retired British civil servant)
-- **First President**: Womesh Chandra Bonnerjee
-- **First Session**: 72 delegates attended
+### 1. Indus Valley Civilization (2500 BC – 1750 BC)
+- **First urban civilization** in South Asia.
+- **Harappa** discovered by Dayaram Sahni (1921); **Mohenjo-daro** discovered by R.D. Banerjee (1922).
+- Known for grid system town planning, burnt bricks, underground drainage, Great Bath at Mohenjo-daro.
+- Port city: **Lothal** (Gujarat).
 
-### Major Phases & Movements
+### 2. Vedic Period (1500 BC – 500 BC)
+- **Rigveda**: Oldest text (10 Mandalas, 1028 Hymns); Gayatri Mantra in 3rd Mandala.
+- **Sama Veda** (Music), **Yajur Veda** (Rituals), **Atharva Veda** (Charms/Medicine).
 
-| Movement | Year | Leader | Key Fact |
-|:---|:---|:---|:---|
-| Swadeshi Movement | 1905 | Bal, Pal, Lal | Against partition of Bengal |
-| Non-Cooperation Movement | 1920 | Mahatma Gandhi | Khilafat issue |
-| Civil Disobedience | 1930 | Gandhi | Salt March (Dandi March, 241 miles) |
-| Quit India Movement | 1942 | Gandhi | "Do or Die" — August 8, Bombay |
+### 3. Buddhism & Jainism
+- **Gautama Buddha**: Born in Lumbini, Enlightened in Bodh Gaya, First Sermon in Sarnath (Dhammacakkappavattana).
+- **Vardhamana Mahavira**: 24th Tirthankara of Jainism, born in Kundagrama.
 
-### Important Acts
-- **Indian Councils Act 1892** — First step toward representation
-- **Morley-Minto Reforms 1909** — Communal electorate introduced
-- **Montagu-Chelmsford Reforms 1919** — Dyarchy introduced
-- **Government of India Act 1935** — Provincial autonomy
+### 4. Maurya Empire (322 BC – 185 BC)
+- **Chandragupta Maurya** established empire with Chanakya (Kautilya — wrote *Arthashastra*).
+- **Ashoka**: Kalinga War (261 BC), adopted Buddhism (Third Buddhist Council at Pataliputra).
 
-### West Bengal Specific
-- **Partition of Bengal**: 1905 by Lord Curzon, reunited 1911
-- **Swadeshi Movement** originated in Bengal
-- **Alipore Bomb Case 1908** — Aurobindo Ghosh acquitted
-- **Chittagong Armory Raid 1930** — Surya Sen (Master da)
+### 5. Gupta Dynasty (Golden Age)
+- **Chandragupta I**, **Samudragupta** ("Napoleon of India" — Harisena's Allahabad Prasasti), **Chandragupta II** (Vikramaditya — Kalidasa in court).`
+  },
+  {
+    id: "history-medieval",
+    subjectId: "gk-general",
+    name: "Medieval History (মধ্যযুগীয় ভারত)",
+    description: "Delhi Sultanate, Mughal Empire, Vijayanagara Dynasty, Marathas & Bhakti Movement",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT Medieval India Class 11", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## Medieval Indian History — Core Notes
 
-> 📖 **Reference**: [NCERT India and the Contemporary World — Chapter 2](https://ncert.nic.in/textbook.php?jess2=0-9)`
+### 1. Delhi Sultanate (1206 – 1526 AD)
+- **Slave Dynasty (1206–1290)**: Qutb-ud-din Aibak (founded), Iltutmish (real founder, Qutb Minar completed), Raziya Sultana (first female ruler), Balban (Iron & Blood policy).
+- **Khilji Dynasty (1290–1320)**: Alauddin Khilji (Market control reforms, Malik Kafur).
+- **Tughlaq Dynasty (1320–1414)**: Muhammad bin Tughlaq (capital shift to Daulatabad, token currency).
+- **Lodi Dynasty (1451–1526)**: Ibrahim Lodi defeated by Babur in **First Battle of Panipat (1526)**.
+
+### 2. Mughal Empire (1526 – 1857 AD)
+- **Babur**: Won First Panipat (1526) & Khanwa (1527). Wrote *Baburnama*.
+- **Akbar**: Din-i-Ilahi (1582), Mansabdari system, Second Battle of Panipat (1556).
+- **Shah Jahan**: Golden Age of Architecture (Taj Mahal, Red Fort, Jama Masjid).
+- **Aurangzeb**: Alamgir, re-imposed Jizya, execution of Guru Tegh Bahadur.
+
+### 3. Bhakti & Sufi Movements
+- **Chaitanya Mahaprabhu** (Bengal — Gaudiya Vaishnavism), **Kabir**, **Guru Nanak**, **Mirabai**.`
+  },
+  {
+    id: "history-modern",
+    subjectId: "gk-general",
+    name: "Modern History (আধুনিক ভারত)",
+    description: "British Raj, Revolt of 1857, Indian National Congress, Freedom Struggle & Partition of Bengal",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT Modern India Class 12", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## Modern Indian History — Core Notes
+
+### 1. Revolt of 1857 (First War of Independence)
+- **Started**: May 10, 1857 at Meerut.
+- **Spark**: Enfield rifle cartridges (greased with pig/cow fat); Mangal Pandey revolted at Barrackpore (Bengal).
+- **Leaders**: Bahadur Shah Zafar (Delhi), Rani Laxmibai (Jhansi), Nana Saheb (Kanpur), Begum Hazrat Mahal (Lucknow).
+
+### 2. Indian National Congress (INC - 1885)
+- **Founded**: 1885 by A.O. Hume. First President: W.C. Bonnerjee (Bombay session, 72 delegates).
+- **Partition of Bengal (1905)**: Announced by Lord Curzon → Swadeshi & Boycott movement launched in Bengal. Annulled in 1911.
+
+### 3. Gandhian Era & Major Movements
+- **Non-Cooperation Movement (1920–1922)**: Called off after Chauri Chaura incident (1922).
+- **Civil Disobedience Movement (1930)**: Dandi Salt March (Sabarmati to Dandi, March 12 – April 6).
+- **Quit India Movement (1942)**: August 8, Bombay — Gandhi gave slogan "Do or Die".
+
+### 4. Freedom Fighters of Bengal
+- **Netaji Subhas Chandra Bose**: Azad Hind Fauj (INA), "Tum Mujhe Khoon Do...", Forward Bloc (1939).
+- **Masterda Surya Sen**: Chittagong Armoury Raid (1930).
+- **Khudiram Bose & Prafulla Chaki**: Muzaffarpur bomb case (1908).`
+  },
+  {
+    id: "geography-physical",
+    subjectId: "gk-general",
+    name: "Physical Geography (ভৌত ভূগোল)",
+    description: "Earth structure, Atmosphere, Plate tectonics, Landforms, Oceans & Climate zones",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT Fundamentals of Physical Geography", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## Physical Geography — Key Notes
+
+### 1. Earth's Interior & Structure
+- **Crust**: Outermost layer (Silica & Aluminium — SIAL for continental, SIMA for oceanic).
+- **Mantle**: Middle layer (Magma source, Asthenosphere).
+- **Core**: Innermost layer (Nickel & Iron — NIFE). Outer core is liquid, Inner core is solid.
+
+### 2. Atmosphere Layers
+- **Troposphere**: Lowest layer (0–12 km), all weather phenomena occur here.
+- **Stratosphere**: Contains **Ozone layer** (absorbs UV rays), ideal for commercial jet flying.
+- **Mesosphere**: Coldest layer, meteors burn up here.
+- **Thermosphere / Ionosphere**: Reflects radio waves, Auroras occur here.
+
+### 3. Rocks & Minerals
+- **Igneous Rocks**: Primary rocks formed from cooling magma (Granite, Basalt).
+- **Sedimentary Rocks**: Formed by deposition (Sandstone, Limestone, Coal).
+- **Metamorphic Rocks**: Formed under heat and pressure (Marble from limestone, Slate, Gneiss).`
+  },
+  {
+    id: "geography-india",
+    subjectId: "gk-general",
+    name: "Geography of India (ভারতের ভূগোল)",
+    description: "Himalayas, Rivers, Climate, Soil types, Agriculture, Mineral resources & National Parks",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT India Physical Environment", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## Geography of India — Core Notes
+
+### 1. Physical Divisions of India
+- **The Northern Mountains**: Himalayas (Young Fold Mountains). Highest peak in India: **Kanchenjunga** (8,586 m, Sikkim). Highest peak in Indian subcontinent (POK): K2 / Godwin-Austen.
+- **Northern Plains**: Alluvial soil deposited by Indus, Ganga & Brahmaputra.
+- **Peninsular Plateau**: Oldest landmass (Gondwanaland). Western Ghats & Eastern Ghats meet at **Nilgiri Hills** (Dodabetta 2,637 m).
+- **Coastal Plains**: Konkan, Malabar (West); Coromandel, Northern Circars (East).
+
+### 2. Major River Systems
+- **Himalayan Rivers**:
+  - **Ganga**: Originates from Gangotri (Bhagirathi), meets Alaknanda at Devprayag. Longest river in India (2,525 km).
+  - **Indus**: Originates near Mansarovar Lake. Major tributaries: Jhelum, Chenab, Ravi, Beas, Satluj.
+  - **Brahmaputra**: Known as Tsangpo in Tibet, Dihang in AP, Jamuna in Bangladesh.
+- **Peninsular Rivers**:
+  - **East Flowing**: Godavari ("Dakshin Ganga" / longest peninsular river), Krishna, Kaveri, Mahanadi.
+  - **West Flowing** (Rift Valley rivers): **Narmada** and **Tapi** (do not form deltas, form estuaries).`
+  },
+  {
+    id: "geography-wb",
+    subjectId: "gk-general",
+    name: "Geography of WB (পশ্চিমবঙ্গের ভূগোল)",
+    description: "Physiographic regions, rivers, climate, districts, borders, forests & Sundarbans of West Bengal",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "WB Govt Official Info", url: "https://wb.gov.in" }
+    ],
+    notesContent: `## West Bengal Geography — Core Notes
+
+### 1. Basic Demographics & Boundaries
+- **Area**: 88,752 sq km (13th largest state in India).
+- **Districts**: 23 districts in 5 divisions.
+- **Borders**: 3 International (Bangladesh 2217 km, Bhutan, Nepal) and 5 States (Odisha, Jharkhand, Bihar, Sikkim, Assam).
+
+### 2. Physiographic Divisions
+- **Northern Mountains**: Darjeeling & Kalimpong. Highest peak: **Sandakphu** (3,636 m).
+- **Western Plateau (Rarh region)**: Purulia, Bankura, Birbhum, Paschim Medinipur. Red/laterite soil.
+- **Plains**: North Bengal Plains (Terai & Dooars) and Gangetic Delta (South Bengal).
+- **Sundarbans**: World's largest mangrove forest delta. UNESCO World Heritage site (1987). Home of Royal Bengal Tiger.
+
+### 3. Rivers of West Bengal
+- **Ganga / Hooghly**: Main river, divides WB into North & South.
+- **Teesta**: Known as "Lifeline of Sikkim & North Bengal".
+- **Damodar**: Known as "Sorrow of Bengal" (DVC established in 1948).
+- **Subarnarekha, Kangsabati, Rupnarayan** in South-West Bengal.`
+  },
+  {
+    id: "science-physics",
+    subjectId: "gk-general",
+    name: "Physics (পদার্থবিদ্যা)",
+    description: "Units & Dimensions, Mechanics, Newton's Laws, Optics, Sound, Heat, Electricity & Magnetism",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT Science Class 9 & 10", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## General Science — Physics Notes
+
+### 1. Units & Measurements
+- **SI Units**: Mass (kg), Length (m), Time (s), Electric Current (Ampere), Temperature (Kelvin), Luminous Intensity (Candela), Amount of Substance (Mole).
+- **Speed of Light**: $3 \\times 10^8$ m/s in vacuum.
+- **Speed of Sound**: ~343 m/s in air at 20°C (Sound cannot travel in vacuum).
+
+### 2. Newton's Laws of Motion
+- **1st Law (Law of Inertia)**: A body remains at rest or uniform motion unless acted upon by net external force.
+- **2nd Law**: Force = Mass × Acceleration ($F = ma$).
+- **3rd Law**: Action and Reaction are equal and opposite.
+
+### 3. Optics & Light
+- **Reflection & Refraction**: Convex lens (converging), Concave lens (diverging).
+- **Myopia (Nearsightedness)**: Corrected using **Concave lens**.
+- **Hypermetropia (Farsightedness)**: Corrected using **Convex lens**.`
+  },
+  {
+    id: "science-chemistry",
+    subjectId: "gk-general",
+    name: "Chemistry (রসায়ন)",
+    description: "States of Matter, Atomic Structure, Periodic Table, Acids & Bases, Metals & Non-metals, Chemical Reactions",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT Science Chemistry", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## General Science — Chemistry Notes
+
+### 1. Atomic Structure & Periodic Table
+- **Atom**: Subatomic particles — Protons (+ve, discovered by Rutherford/Goldstein), Neutrons (neutral, Chadwick), Electrons (-ve, J.J. Thomson).
+- **Modern Periodic Table**: Designed by Henry Moseley based on **Atomic Number**.
+- **Periods**: 7 horizontal rows; **Groups**: 18 vertical columns.
+
+### 2. Acids, Bases & pH Scale
+- **pH Scale** (0 to 14): acidic < 7, neutral = 7 (pure water), basic > 7.
+- **Common Acids**: Vinegar (Acetic acid), Sour milk/curd (Lactic acid), Ant sting (Formic/Methanoic acid), Citrus fruits (Citric acid).
+- **Baking Soda**: Sodium Bicarbonate ($NaHCO_3$).
+- **Washing Soda**: Sodium Carbonate ($Na_2CO_3 \\cdot 10H_2O$).
+
+### 3. Metals & Common Compounds
+- **Liquid metal at room temp**: Mercury (Hg).
+- **Liquid non-metal**: Bromine (Br).
+- **Rusting of Iron**: Chemical reaction requiring Oxygen & Moisture (prevented by Galvanization — Zinc coating).`
+  },
+  {
+    id: "science-biology",
+    subjectId: "gk-general",
+    name: "Biology (জীববিজ্ঞান)",
+    description: "Cell biology, Human anatomy, Digestive & Circulatory systems, Plant physiology, Vitamins & Diseases",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "NCERT Biology Class 9-10", url: "https://ncert.nic.in" }
+    ],
+    notesContent: `## General Science — Biology Notes
+
+### 1. Cell Biology
+- **Cell**: Basic unit of life (Discovered by Robert Hooke in 1665).
+- **Powerhouse of Cell**: **Mitochondrion**.
+- **Suicide Bags**: **Lysosomes**.
+- **Protein Factory**: **Ribosomes**.
+
+### 2. Human Body & Physiology
+- **Blood**: pH ~7.4 (slightly alkaline). Red Blood Cells (RBCs — Erythrocytes, lifetime ~120 days), White Blood Cells (WBCs — Leucocytes, immunity), Platelets (blood clotting).
+- **Universal Donor Blood Group**: **O negative**; **Universal Recipient**: **AB positive**.
+- **Heart**: 4 chambers in humans (2 Atria, 2 Ventricles).
+
+### 3. Vitamins & Deficiency Diseases
+| Vitamin | Chemical Name | Deficiency Disease |
+|:---|:---|:---|
+| Vitamin A | Retinol | Night Blindness |
+| Vitamin B1 | Thiamine | Beriberi |
+| Vitamin C | Ascorbic Acid | Scurvy |
+| Vitamin D | Calciferol | Rickets |
+| Vitamin K | Phylloquinone | Delayed blood clotting |`
+  },
+  {
+    id: "indian-polity-constitution",
+    subjectId: "gk-general",
+    name: "Polity (রাষ্ট্রবিজ্ঞান)",
+    description: "Indian Constitution, Fundamental Rights, Directive Principles, President, Parliament & Panchayati Raj",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "Constitution of India — Official", url: "https://legislative.gov.in" }
+    ],
+    notesContent: `## Indian Polity & Constitution Notes
+
+### 1. Constitution Basics
+- **Adopted**: Nov 26, 1949; **Enforced**: Jan 26, 1950.
+- **Drafting Committee Chairman**: Dr. B.R. Ambedkar.
+- **Constitutional Assembly President**: Dr. Rajendra Prasad.
+
+### 2. Fundamental Rights (Part III, Art 12-35)
+- Art 14: Equality before Law.
+- Art 17: Abolition of Untouchability.
+- Art 21: Right to Life & Personal Liberty.
+- Art 21A: Right to Education (6-14 yrs).
+- Art 32: Heart & Soul of Constitution (Writs: Habeas Corpus, Mandamus, etc.).
+
+### 3. Governance
+- **President**: Head of State (Art 52). Minimum age: 35 yrs. Elects via Electoral College.
+- **Panchayati Raj**: 73rd Amendment (1992), Part IX, Schedule 11. Article 40 in DPSP.`
+  },
+  {
+    id: "indian-economics-main",
+    subjectId: "gk-general",
+    name: "Economics (অর্থনীতি)",
+    description: "Indian Economy, Five-Year Plans, NITI Aayog, RBI, Inflation, Banking System & GST",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "Reserve Bank of India", url: "https://rbi.org.in" }
+    ],
+    notesContent: `## Indian Economy Notes
+
+### 1. Key Economic Concepts
+- **GDP (Gross Domestic Product)**: Total value of final goods and services produced within national boundaries in a year.
+- **Inflation**: Persistent increase in general price levels (Measured by CPI & WPI).
+
+### 2. Banking & RBI
+- **Reserve Bank of India (RBI)**: Established April 1, 1935 under RBI Act 1934. Nationalised in 1949. Central bank of India.
+- **Monetary Policy Tools**: Repo Rate, Reverse Repo Rate, CRR (Cash Reserve Ratio), SLR.
+
+### 3. Planning & GST
+- **NITI Aayog**: Replaced Planning Commission on Jan 1, 2015. Prime Minister is Ex-officio Chairman.
+- **GST (Goods and Services Tax)**: Enforced July 1, 2017 (101st Constitutional Amendment Act).`
+  },
+  {
+    id: "static-gk-main",
+    subjectId: "gk-general",
+    name: "Static GK (স্ট্যাটিক জিকে)",
+    description: "Famous Books & Authors, First in India, World Capitals & Currencies, Sports, Awards & Important Days",
+    questionsCount: 0,
+    referenceLinks: [
+      { label: "India.gov.in Official Portal", url: "https://www.india.gov.in" }
+    ],
+    notesContent: `## Static GK & General Awareness Notes
+
+### 1. First in India
+- **First President**: Dr. Rajendra Prasad.
+- **First Prime Minister**: Jawaharlal Nehru.
+- **First Woman Prime Minister**: Indira Gandhi.
+- **First Indian in Space**: Rakesh Sharma (1984).
+- **First Nobel Laureate**: Rabindranath Tagore (1913, Literature - Gitanjali).
+
+### 2. Important National Days
+- **National Youth Day**: Jan 12 (Swami Vivekananda's Birthday).
+- **National Science Day**: Feb 28 (Raman Effect discovery).
+- **International Women's Day**: March 8.
+- **Environment Day**: June 5.
+- **Teacher's Day**: Sept 5 (Dr. S. Radhakrishnan).
+
+### 3. Awards & Sports
+- **Bharat Ratna**: Highest Civilian Award in India (Started 1954).
+- **Param Vir Chakra**: Highest Military Gallantry Award.
+- **National Game of India**: Field Hockey (Traditional).`
   },
   {
     id: "wb-geography",
