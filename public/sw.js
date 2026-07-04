@@ -1,19 +1,7 @@
-const CACHE_NAME = "study-with-arup-v2";
-const ASSETS_TO_CACHE = [
-  "/",
-  "/manifest.json",
-  "/icon-192.png",
-  "/icon-512.png",
-  "/army-hero.png",
-  "/gk-ebook.pdf"
-];
+// Clean Pass-Through Service Worker for Next.js PWA Compliance
+const CACHE_NAME = "study-with-arup-v3";
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
@@ -21,24 +9,14 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
+        cacheNames.map((cache) => caches.delete(cache))
       );
     })
   );
   self.clients.claim();
 });
 
+// Pass-through fetch handler so Next.js App Router handles all navigation smoothly
 self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") return;
-  event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request).then((response) => {
-        return response || caches.match("/");
-      });
-    })
-  );
+  event.respondWith(fetch(event.request));
 });
