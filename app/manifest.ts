@@ -2,13 +2,17 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    id: "/",
     name: "Study With Arup",
     short_name: "StudyWithArup",
     description: "Best Exam Preparation Platform for WBP Constable, SSC GD, Agniveer Army & WB Panchayat exams in West Bengal.",
     start_url: "/",
+    scope: "/",
     display: "standalone",
     background_color: "#0f172a",
     theme_color: "#2563eb",
+    orientation: "any",
+    categories: ["education", "productivity"],
     icons: [
       {
         src: "/icon-192.png",
@@ -33,6 +37,22 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
+      },
+    ],
+    screenshots: [
+      {
+        src: "/screenshot-wide.png",
+        sizes: "1280x720",
+        type: "image/png",
+        form_factor: "wide",
+        label: "Desktop Dashboard",
+      },
+      {
+        src: "/screenshot-narrow.png",
+        sizes: "720x1280",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Mobile App",
       },
     ],
   };
