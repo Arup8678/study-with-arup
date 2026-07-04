@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { HelpCircle, ChevronDown, ChevronUp } from "lucide-react";
@@ -39,13 +39,14 @@ function PYQQuestion({ q, num }: { q: { id: string; question: string; options: s
   );
 }
 
-export default function PYQPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: examId } = use(params);
+export default function PYQPage({ params }: { params: { id: string } }) {
+  const examId = params?.id;
   const router = useRouter();
   const [exam, setExam] = useState<Exam | null>(null);
   const [openYear, setOpenYear] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!examId) return;
     dbService.getExamById(examId).then(d => { if (!d) router.push("/exams"); else { setExam(d); if (d.pyqs?.[0]) setOpenYear(d.pyqs[0].year); } });
   }, [examId, router]);
 

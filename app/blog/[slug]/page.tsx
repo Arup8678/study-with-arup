@@ -1,19 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Clock, User, Calendar, ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { dbService } from "@/services/db";
 import { BlogItem } from "@/types";
 
-export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default function BlogDetailPage({ params }: { params: { slug: string } }) {
+  const slug = params?.slug;
   const [blog, setBlog] = useState<BlogItem | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
+    if (!slug) return;
     setLoading(true);
     dbService.getBlogBySlug(slug).then(data => {
       if (!data) {

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ExternalLink, FileText, Bell, HelpCircle, ChevronRight } from "lucide-react";
+import { ExternalLink, ChevronRight } from "lucide-react";
 import { dbService } from "@/services/db";
 import { Exam } from "@/types";
 
@@ -58,13 +58,14 @@ const OPTIONS = [
   },
 ];
 
-export default function ExamDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: examId } = use(params);
+export default function ExamDetailPage({ params }: { params: { id: string } }) {
+  const examId = params?.id;
   const router = useRouter();
   const [exam, setExam] = useState<Exam | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!examId) return;
     dbService.getExamById(examId).then(data => {
       if (!data) { router.push("/exams"); return; }
       setExam(data);

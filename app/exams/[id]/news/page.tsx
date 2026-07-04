@@ -1,18 +1,19 @@
 "use client";
 
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bell, ExternalLink } from "lucide-react";
 import { dbService } from "@/services/db";
 import { Exam } from "@/types";
 
-export default function ExamNewsPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: examId } = use(params);
+export default function ExamNewsPage({ params }: { params: { id: string } }) {
+  const examId = params?.id;
   const router = useRouter();
   const [exam, setExam] = useState<Exam | null>(null);
 
   useEffect(() => {
+    if (!examId) return;
     dbService.getExamById(examId).then(d => { if (!d) router.push("/exams"); else setExam(d); });
   }, [examId, router]);
 

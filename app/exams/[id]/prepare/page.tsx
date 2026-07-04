@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
@@ -27,13 +27,14 @@ const SUBJECT_COLORS: Record<string, string> = {
   "bengali":      "from-pink-50 to-fuchsia-50 dark:from-pink-900/10 dark:to-fuchsia-900/5 border-pink-200/60 dark:border-pink-800/30",
 };
 
-export default function PreparePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: examId } = use(params);
+export default function PreparePage({ params }: { params: { id: string } }) {
+  const examId = params?.id;
   const router = useRouter();
   const [exam, setExam] = useState<Exam | null>(null);
   const [subjects, setSubjects] = useState<Subject[]>([]);
 
   useEffect(() => {
+    if (!examId) return;
     dbService.getExamById(examId).then(d => {
       if (!d) { router.push("/exams"); return; }
       setExam(d);

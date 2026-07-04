@@ -1,20 +1,22 @@
 "use client";
 
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronRight, BookOpen } from "lucide-react";
 import { dbService } from "@/services/db";
 import { Topic } from "@/types";
 
-export default function PrepareSubjectPage({ params }: { params: Promise<{ id: string; subId: string }> }) {
-  const { id: examId, subId } = use(params);
+export default function PrepareSubjectPage({ params }: { params: { id: string; subId: string } }) {
+  const examId = params?.id;
+  const subId = params?.subId;
   const router = useRouter();
   const [subjectName, setSubjectName] = useState("");
   const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!subId || !examId) return;
     dbService.getSubjectById(subId).then(sub => {
       if (!sub) { router.push(`/exams/${examId}/prepare`); return; }
       setSubjectName(sub.name);

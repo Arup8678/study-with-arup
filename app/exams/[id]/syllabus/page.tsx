@@ -1,18 +1,19 @@
 "use client";
 
-import React, { useEffect, useState, use } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FileText, AlertCircle, CheckCircle, ExternalLink, ShieldCheck } from "lucide-react";
 import { dbService } from "@/services/db";
 import { Exam } from "@/types";
 
-export default function SyllabusPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: examId } = use(params);
+export default function SyllabusPage({ params }: { params: { id: string } }) {
+  const examId = params?.id;
   const router = useRouter();
   const [exam, setExam] = useState<Exam | null>(null);
 
   useEffect(() => {
+    if (!examId) return;
     dbService.getExamById(examId).then(d => { if (!d) router.push("/exams"); else setExam(d); });
   }, [examId, router]);
 

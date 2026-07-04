@@ -1,19 +1,21 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ExternalLink, BookOpen, Play } from "lucide-react";
 import { dbService } from "@/services/db";
 import { Topic } from "@/types";
 
-export default function TopicDetailPage({ params }: { params: Promise<{ id: string; topicId: string }> }) {
-  const { id: subjectId, topicId } = use(params);
+export default function TopicDetailPage({ params }: { params: { id: string; topicId: string } }) {
+  const subjectId = params?.id;
+  const topicId = params?.topicId;
   const [topic, setTopic] = useState<Topic | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
+    if (!topicId || !subjectId) return;
     setLoading(true);
     dbService.getTopicById(topicId).then(data => {
       if (!data) { router.push(`/subjects/${subjectId}`); return; }

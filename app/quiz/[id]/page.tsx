@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
@@ -10,8 +10,8 @@ import {
 import { dbService } from "@/services/db";
 import { Quiz, QuizQuestion } from "@/types";
 
-export default function QuizDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: quizId } = use(params);
+export default function QuizDetailPage({ params }: { params: { id: string } }) {
+  const quizId = params?.id;
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<Record<number, number>>({});
@@ -25,6 +25,7 @@ export default function QuizDetailPage({ params }: { params: Promise<{ id: strin
 
   // Load Quiz & User profile bookmarks
   useEffect(() => {
+    if (!quizId) return;
     setLoading(true);
     dbService.getQuizById(quizId).then(data => {
       if (!data) {

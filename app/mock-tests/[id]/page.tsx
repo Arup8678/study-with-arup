@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
@@ -10,8 +10,8 @@ import {
 import { dbService } from "@/services/db";
 import { MockTest, QuizQuestion } from "@/types";
 
-export default function MockTestDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: testId } = use(params);
+export default function MockTestDetailPage({ params }: { params: { id: string } }) {
+  const testId = params?.id;
   const [test, setTest] = useState<MockTest | null>(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<Record<number, number>>({});
@@ -24,6 +24,7 @@ export default function MockTestDetailPage({ params }: { params: Promise<{ id: s
   const router = useRouter();
 
   useEffect(() => {
+    if (!testId) return;
     setLoading(true);
     dbService.getMockTestById(testId).then(data => {
       if (!data) {
