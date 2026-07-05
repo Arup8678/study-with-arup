@@ -16,44 +16,46 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Call Google Gemini 1.5 Flash API endpoint
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
     const systemInstruction = 
       "You are Arup AI Tutor, an expert AI mentor for Indian competitive exams specifically WBP Constable (West Bengal Police), SSC GD Constable, Agniveer Army, and WB Panchayat exams. " +
       "Answer clearly in Bengali or English based on the student's question. Provide bullet points, syllabus tips, short notes, or formulas. Keep answers concise, highly accurate, and helpful for students.";
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: `${systemInstruction}\n\nStudent Question: ${prompt}` }]
+    // Try available Gemini models in sequence
+    const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp"];
+
+    for (const model of models) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: "user",
+                parts: [{ text: `${systemInstruction}\n\nStudent Question: ${prompt}` }]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 800,
+            }
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (candidateText) {
+            return NextResponse.json({ reply: candidateText, modelUsed: model });
           }
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 800,
         }
-      })
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("Gemini API error:", errText);
-      return NextResponse.json({ reply: null, error: "Gemini API request failed" });
+      } catch (err) {
+        console.error(`Error with model ${model}:`, err);
+      }
     }
 
-    const data = await response.json();
-    const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (candidateText) {
-      return NextResponse.json({ reply: candidateText });
-    }
-
-    return NextResponse.json({ reply: null });
+    return NextResponse.json({ reply: null, message: "Gemini API call unsuccessful" });
   } catch (error) {
     console.error("AI Tutor Route error:", error);
     return NextResponse.json({ reply: null, error: "Internal error" }, { status: 500 });
