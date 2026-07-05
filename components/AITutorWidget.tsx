@@ -95,7 +95,7 @@ export default function AITutorWidget() {
     }
   }, [messages, isTyping]);
 
-  const handleSend = (textToSend?: string) => {
+  const handleSend = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
     if (!query) return;
 
@@ -110,8 +110,27 @@ export default function AITutorWidget() {
     if (!textToSend) setInput("");
     setIsTyping(true);
 
-    // Simulate AI response stream
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/ai-tutor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: query })
+      });
+      const data = await res.json();
+
+      let aiReplyText = data?.reply;
+      if (!aiReplyText) {
+        aiReplyText = generateAIResponse(query);
+      }
+
+      const aiMsg: Message = {
+        id: `ai-${Date.now()}`,
+        sender: "ai",
+        text: aiReplyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setMessages(prev => [...prev, aiMsg]);
+    } catch {
       const aiReplyText = generateAIResponse(query);
       const aiMsg: Message = {
         id: `ai-${Date.now()}`,
@@ -120,8 +139,9 @@ export default function AITutorWidget() {
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages(prev => [...prev, aiMsg]);
+    } finally {
       setIsTyping(false);
-    }, 600);
+    }
   };
 
   return (
@@ -154,7 +174,7 @@ export default function AITutorWidget() {
                 <div className="flex items-center gap-1.5">
                   <h3 className="font-extrabold text-white text-sm">Arup AI Tutor</h3>
                   <span className="px-2 py-0.5 rounded-full text-[9px] bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30 flex items-center gap-1">
-                    <Zap size={9} /> AI Active
+                    <Zap size={9} /> Gemini AI
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-400">24/7 Competitive Exam Doubts Solver</p>

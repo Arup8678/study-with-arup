@@ -111,7 +111,7 @@ export default function AITutorPage() {
     }
   }, [messages, isTyping]);
 
-  const handleSend = (textToSend?: string) => {
+  const handleSend = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
     if (!query) return;
 
@@ -126,7 +126,27 @@ export default function AITutorPage() {
     if (!textToSend) setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/ai-tutor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: query })
+      });
+      const data = await res.json();
+
+      let aiReplyText = data?.reply;
+      if (!aiReplyText) {
+        aiReplyText = getFullAIAnswer(query);
+      }
+
+      const aiMsg: Message = {
+        id: `ai-${Date.now()}`,
+        sender: "ai",
+        text: aiReplyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setMessages(prev => [...prev, aiMsg]);
+    } catch {
       const aiReplyText = getFullAIAnswer(query);
       const aiMsg: Message = {
         id: `ai-${Date.now()}`,
@@ -135,8 +155,9 @@ export default function AITutorPage() {
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setMessages(prev => [...prev, aiMsg]);
+    } finally {
       setIsTyping(false);
-    }, 600);
+    }
   };
 
   return (
@@ -156,7 +177,7 @@ export default function AITutorPage() {
               <div className="flex items-center gap-2">
                 <h1 className="text-xl font-extrabold font-heading text-white">Arup AI Exam Tutor</h1>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30 flex items-center gap-1">
-                  <Zap size={10} /> Powered by AI
+                  <Zap size={10} /> Gemini AI
                 </span>
               </div>
               <p className="text-xs text-slate-400">Ask doubts, get syllabus explanations & formula shortcuts 24/7</p>
