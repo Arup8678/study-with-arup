@@ -9,19 +9,19 @@ export async function POST(req: NextRequest) {
 
     const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
-    if (!apiKey || apiKey.startsWith("AQ.")) {
+    if (!apiKey) {
       return NextResponse.json({
         reply: null,
-        message: "Invalid or missing GEMINI_API_KEY. Google AI Studio keys start with 'AIzaSy'."
+        message: "GEMINI_API_KEY not configured."
       });
     }
 
     const systemInstruction = 
       "You are Arup AI Tutor, an expert AI mentor for West Bengal competitive exams: WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat. " +
-      "Answer clearly in Bengali or English. Keep answers concise, highly accurate, with key points and formulas.";
+      "Answer clearly in Bengali or English based on student question. Keep answers concise, highly accurate, with bullet points and key formulas.";
 
-    // Try available Gemini API model endpoints
-    const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro"];
+    // Active Gemini AI models (gemini-2.5-flash is Google's flagship fast model)
+    const models = ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash"];
 
     for (const model of models) {
       try {
