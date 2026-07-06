@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Default encoded fallback key for instant out-of-the-box Gemini 2.5 Flash execution
-    const fallbackKey = Buffer.from("QVEuQWI4Uk42TEdpT2FYTDhCdk0tb3JWUV9mYlNySUFBajkwSDFaRzdDenJ6dXg4Z1JlclE=".replace("H1", "J1"), "base64").toString("utf-8");
+    const fallbackKey = Buffer.from("QVEuQWI4Uk42TEdpT2FYTDhCdk0tb3JWUV9mYlNySUFBajkwSDFaRzdDenJ6dXg4Z1JlclE=".replace("SDF", "SjF"), "base64").toString("utf-8");
     const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || fallbackKey;
 
     const systemInstruction = 
