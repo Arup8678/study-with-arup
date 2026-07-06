@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   robots: "index, follow",
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || process.env.GOOGLE_SITE_VERIFICATION || "",
+    google: "QPmC59486DdFsTDZw3g0GstUJ1U5phBQ-v-rzljXnb0",
   },
   openGraph: {
     title: "Study With Arup | West Bengal Exam Prep Platform",
