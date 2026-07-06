@@ -9,19 +9,19 @@ export async function POST(req: NextRequest) {
 
     const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
-    if (!apiKey) {
+    if (!apiKey || apiKey.startsWith("AQ.")) {
       return NextResponse.json({
         reply: null,
-        message: "GEMINI_API_KEY not configured. Using fallback AI model."
+        message: "Invalid or missing GEMINI_API_KEY. Google AI Studio keys start with 'AIzaSy'."
       });
     }
 
     const systemInstruction = 
-      "You are Arup AI Tutor, an expert AI mentor for Indian competitive exams specifically WBP Constable (West Bengal Police), SSC GD Constable, Agniveer Army, and WB Panchayat exams. " +
-      "Answer clearly in Bengali or English based on the student's question. Provide bullet points, syllabus tips, short notes, or formulas. Keep answers concise, highly accurate, and helpful for students.";
+      "You are Arup AI Tutor, an expert AI mentor for West Bengal competitive exams: WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat. " +
+      "Answer clearly in Bengali or English. Keep answers concise, highly accurate, with key points and formulas.";
 
-    // Try available Gemini models in sequence
-    const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp"];
+    // Try available Gemini API model endpoints
+    const models = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro"];
 
     for (const model of models) {
       try {
@@ -51,11 +51,11 @@ export async function POST(req: NextRequest) {
           }
         }
       } catch (err) {
-        console.error(`Error with model ${model}:`, err);
+        console.error(`Error requesting model ${model}:`, err);
       }
     }
 
-    return NextResponse.json({ reply: null, message: "Gemini API call unsuccessful" });
+    return NextResponse.json({ reply: null, message: "Gemini API call failed." });
   } catch (error) {
     console.error("AI Tutor Route error:", error);
     return NextResponse.json({ reply: null, error: "Internal error" }, { status: 500 });
