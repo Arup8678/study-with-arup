@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Study With Arup Team" }],
   manifest: "/manifest.json",
   robots: "index, follow",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || process.env.GOOGLE_SITE_VERIFICATION || "",
+  },
   openGraph: {
     title: "Study With Arup | West Bengal Exam Prep Platform",
     description: "The best preparation portal for WBP Constable, SSC GD, Agniveer Army, and WB Panchayat exams.",
