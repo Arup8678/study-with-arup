@@ -37,6 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <meta name="google-site-verification" content="QPmC59486DdFsTDZw3g0GstUJ1U5phBQ-v-rzljXnb0" />
+      </head>
       <body className="antialiased min-h-screen flex flex-col font-body">
         <ThemeProvider>
           <PWARegister />
