@@ -8,6 +8,7 @@ const EXAM_PILLS = [
   { id: "ssc-gd",         label: "SSC GD",          emoji: "⭐" },
   { id: "agniveer-army",  label: "Agniveer Army",   emoji: "🪖" },
   { id: "wb-panchayat",   label: "WB Panchayat",    emoji: "🏛️" },
+  { id: "psc-miscellaneous", label: "PSC Miscellaneous", emoji: "💼" },
 ];
 
 export default function HomePage() {

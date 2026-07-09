@@ -450,6 +450,83 @@ export const EXAMS_DATA: Exam[] = [
         ]
       }
     ]
+  },
+  {
+    id: "psc-miscellaneous",
+    name: "PSC Miscellaneous (পিএসসি মিসলেনিয়াস)",
+    description: "WBPSC conducts Miscellaneous Services Recruitment Exam for various administrative and supervisory posts.",
+    iconName: "FileText",
+    activeStudents: 0,
+    totalQuestions: 0,
+    totalMockTests: 0,
+    details: "Preliminary Written Exam: 200 marks | 100 questions (75 General Studies, 25 Arithmetic) | 90 minutes | Negative marking: 0.33 per wrong answer. Followed by Final Written Exam (Descriptive) & Personality Test.",
+    officialLink: "https://psc.wb.gov.in",
+    syllabus: [
+      "General Studies — 150 Marks (75 Questions): Indian History, Geography, Polity, Science, Economics, Environment & Static GK",
+      "Arithmetic — 50 Marks (25 Questions): Arithmetic calculations of Madhyamik level NCERT/WBBSE standard"
+    ],
+    examPattern: {
+      totalQuestions: 100,
+      totalMarks: 200,
+      durationMinutes: 90,
+      negativeMarking: 0.33,
+      sections: [
+        { name: "General Studies", questions: 75, marks: 150 },
+        { name: "Arithmetic", questions: 25, marks: 50 }
+      ]
+    },
+    selectionProcess: [
+      "Preliminary Examination (OMR-based MCQ)",
+      "Final Written Examination (Descriptive / Conventional)",
+      "Personality Test (Interview)"
+    ],
+    subjectIds: ["gk-general", "mathematics"],
+    notifications: [
+      {
+        id: "psc-n1",
+        title: "PSC Miscellaneous Services 2024 Notification Published",
+        type: "Recruitment",
+        date: "2024-10-05",
+        desc: "West Bengal Public Service Commission released official advertisement for Miscellaneous Services Recruitment Exam. Candidates can check eligibility details online.",
+        officialLink: "https://psc.wb.gov.in"
+      },
+      {
+        id: "psc-n2",
+        title: "PSC Miscellaneous Services Prelims Schedule Update",
+        type: "Exam Date",
+        date: "2025-02-15",
+        desc: "WBPSC announced the schedule and centers information updates for the Preliminary exam. Keep tracking official updates.",
+        officialLink: "https://psc.wb.gov.in"
+      }
+    ],
+    pyqs: [
+      {
+        year: 2019,
+        questions: [
+          {
+            id: "psc-2019-q1",
+            question: "Who wrote the famous novel 'Pather Panchali'?",
+            options: ["Rabindranath Tagore", "Bibhutibhushan Bandyopadhyay", "Sarat Chandra Chattopadhyay", "Tarasankar Bandyopadhyay"],
+            correctAnswerIndex: 1,
+            explanation: "'Pather Panchali' is a famous Bengali novel written by Bibhutibhushan Bandyopadhyay in 1929. It was later adapted into a film by Satyajit Ray."
+          },
+          {
+            id: "psc-2019-q2",
+            question: "In which year did the Battle of Plassey take place?",
+            options: ["1757", "1764", "1761", "1772"],
+            correctAnswerIndex: 0,
+            explanation: "The Battle of Plassey was fought on June 23, 1757, between the Nawab of Bengal, Siraj-ud-Daulah, and the British East India Company led by Robert Clive."
+          },
+          {
+            id: "psc-2019-q3",
+            question: "If 15% of A is equal to 20% of B, then A:B is equal to:",
+            options: ["3:4", "4:3", "5:4", "4:5"],
+            correctAnswerIndex: 1,
+            explanation: "15% of A = 20% of B => 15A = 20B => A/B = 20/15 = 4/3 => A:B = 4:3."
+          }
+        ]
+      }
+    ]
   }
 ];
 
@@ -464,7 +541,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Globe",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "agniveer-army"]
+    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "psc-miscellaneous"]
   },
   {
     id: "gk-panchayat",
@@ -482,7 +559,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Calculator",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "wb-panchayat"]
+    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "wb-panchayat", "psc-miscellaneous"]
   },
   {
     id: "reasoning",
@@ -1560,6 +1637,21 @@ export const MOCK_TESTS: MockTest[] = [
       SAMPLE_QUESTIONS[2], SAMPLE_QUESTIONS[3], SAMPLE_QUESTIONS[6],
       SAMPLE_QUESTIONS[5], SAMPLE_QUESTIONS[0], SAMPLE_QUESTIONS[1],
       SAMPLE_QUESTIONS[4], SAMPLE_QUESTIONS[7]
+    ]
+  },
+  {
+    id: "mock-psc-1",
+    examId: "psc-miscellaneous",
+    examName: "PSC Miscellaneous",
+    title: "PSC Miscellaneous — Full Mock Test 1 (Free)",
+    durationMinutes: 90,
+    totalQuestions: 8,
+    totalMarks: 16,
+    isPremium: false,
+    questions: [
+      SAMPLE_QUESTIONS[0], SAMPLE_QUESTIONS[1], SAMPLE_QUESTIONS[6],
+      SAMPLE_QUESTIONS[7], SAMPLE_QUESTIONS[5], SAMPLE_QUESTIONS[2],
+      SAMPLE_QUESTIONS[3], SAMPLE_QUESTIONS[4]
     ]
   }
 ];

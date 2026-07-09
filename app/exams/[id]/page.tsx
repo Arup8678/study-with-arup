@@ -12,6 +12,7 @@ const EXAM_GRADIENTS: Record<string, string> = {
   "ssc-gd":         "from-emerald-600 to-teal-700",
   "agniveer-army":  "from-amber-600 to-orange-700",
   "wb-panchayat":   "from-purple-600 to-violet-700",
+  "psc-miscellaneous": "from-rose-600 to-pink-700",
 };
 
 const OPTIONS = [
