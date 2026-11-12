@@ -1,3 +1,4 @@
+import { IDO_SUBJECTS, IDO_SUBJECT_IDS, IDO_TOPICS } from "./idoData";
 import { Exam, Subject, Topic, Quiz, MockTest, BlogItem, NotificationItem, LeaderboardUser, QuizQuestion } from "@/types";
 
 // ─────────────────────────────────────────────
@@ -566,7 +567,7 @@ export const EXAMS_DATA: Exam[] = [
       "Written Examination (OMR-based MCQ, 100 marks)",
       "Personality Test (Interview, 15 marks)"
     ],
-    subjectIds: ["english", "mathematics", "reasoning", "science"],
+    subjectIds: IDO_SUBJECT_IDS,
     notifications: [
       {
         id: "ido-n1",
@@ -609,7 +610,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Calculator",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "wb-panchayat", "psc-miscellaneous", "psc-ido"]
+    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "wb-panchayat", "psc-miscellaneous"]
   },
   {
     id: "reasoning",
@@ -618,7 +619,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Brain",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "psc-ido"]
+    examIds: ["wbp-constable", "ssc-gd", "agniveer-army"]
   },
   {
     id: "english",
@@ -627,7 +628,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "BookOpen",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "wb-panchayat", "psc-ido"]
+    examIds: ["wbp-constable", "ssc-gd", "wb-panchayat"]
   },
   {
     id: "science",
@@ -636,7 +637,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Atom",
     questionCount: 0,
     progress: 0,
-    examIds: ["agniveer-army", "psc-ido"]
+    examIds: ["agniveer-army"]
   },
   {
     id: "bengali",
@@ -1827,3 +1828,7 @@ export const LEADERBOARD_DATA: LeaderboardUser[] = [
   { rank: 9, name: "Rina Khatun", district: "Malda", xp: 8850, streak: 15 },
   { rank: 10, name: "Amitava Sen", district: "Darjeeling", xp: 8400, streak: 3 }
 ];
+
+// PSC IDO subjects and chapters (notes and MCQs are loaded on demand from /public/ido)
+SUBJECTS_DATA.push(...IDO_SUBJECTS);
+TOPICS_DATA.push(...IDO_TOPICS);

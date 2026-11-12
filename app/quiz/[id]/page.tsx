@@ -114,6 +114,9 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
   };
 
   // 1. COMPLETION RESULT VIEW
+  const isIdoQuiz = quiz.id.startsWith("ido-");
+  const chapterHref = `/exams/psc-ido/prepare/${quiz.subjectId}/${quiz.id}`;
+
   if (isCompleted) {
     const accuracy = Math.round((score / quiz.questionsCount) * 100);
     const coinsEarned = score * 2;
@@ -159,10 +162,10 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
               <LayoutDashboard size={14} /> Go to Dashboard
             </Link>
             <Link
-              href="/quiz"
+              href={isIdoQuiz ? chapterHref : "/quiz"}
               className="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-700 hover:bg-slate-800 text-slate-300 font-semibold transition-all text-xs flex items-center justify-center gap-1.5"
             >
-              Take Another Quiz
+              {isIdoQuiz ? "Back to Chapter" : "Take Another Quiz"}
             </Link>
           </div>
         </div>
@@ -187,7 +190,7 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
                   }`}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <h4 className="font-bold text-sm text-slate-800 dark:text-white leading-relaxed">
+                    <h4 className="font-bold text-sm text-slate-800 dark:text-white leading-relaxed whitespace-pre-line">
                       Q{idx + 1}: {q.question}
                     </h4>
                     <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
@@ -217,10 +220,12 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
                     })}
                   </div>
 
-                  <div className="p-4 rounded-xl bg-blue-500/5 dark:bg-blue-950/20 border-l-4 border-blue-500 text-xs text-slate-500 leading-relaxed">
-                    <span className="font-bold text-slate-700 dark:text-slate-200 block mb-1">Answer Key Walkthrough:</span>
-                    {q.explanation}
-                  </div>
+                  {q.explanation && (
+                    <div className="p-4 rounded-xl bg-blue-500/5 dark:bg-blue-950/20 border-l-4 border-blue-500 text-xs text-slate-500 leading-relaxed">
+                      <span className="font-bold text-slate-700 dark:text-slate-200 block mb-1">Answer Key Walkthrough:</span>
+                      {q.explanation}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -237,7 +242,10 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
       
       {/* Left panel: Active Question Card */}
       <div className="lg:col-span-8 space-y-6">
-        
+        {isIdoQuiz && (
+          <Link href={chapterHref} className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">← Back to chapter</Link>
+        )}
+
         {/* Quiz Info Bar */}
         <div className="flex justify-between items-center gap-4 bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 shadow-sm">
           <div>
@@ -261,7 +269,7 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
 
         {/* Question Panel */}
         <div className="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/60 p-6 sm:p-8 rounded-3xl shadow-premium space-y-6">
-          <h2 className="text-base sm:text-lg font-bold text-slate-850 dark:text-white leading-relaxed">
+          <h2 className="text-base sm:text-lg font-bold text-slate-850 dark:text-white leading-relaxed whitespace-pre-line">
             {currentQuestion.question}
           </h2>
 
