@@ -19,7 +19,7 @@ export default function Footer() {
                 SWA
               </div>
               <span className="font-heading font-extrabold text-lg text-white">
-                Study With Arup
+                Study With RootX
               </span>
             </Link>
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
@@ -31,8 +31,8 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="font-bold text-white text-sm">Direct Contact</h4>
             <div className="space-y-2 text-xs">
-              <a href="tel:9382326813" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors font-medium">
-                <Phone size={14} className="text-emerald-400" /> Mobile: 9382326813
+              <a href="tel:8944907578" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors font-medium">
+                <Phone size={14} className="text-emerald-400" /> Mobile: 8944907578
               </a>
               <a href="mailto:fitcop455@gmail.com" className="flex items-center gap-2 text-slate-300 hover:text-white transition-colors font-medium">
                 <Mail size={14} className="text-blue-400" /> Email: fitcop455@gmail.com
@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
-          <p>© {currentYear} Study With Arup. All rights reserved.</p>
+          <p>© {currentYear} Study With RootX. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="/contact" className="hover:text-slate-300">Contact Us</Link>
             <Link href="/privacy" className="hover:text-slate-300">Privacy Policy</Link>

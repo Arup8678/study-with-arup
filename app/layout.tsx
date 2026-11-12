@@ -13,19 +13,19 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Study With Arup | West Bengal Competitive Exam Prep",
-  description: "Prepare smart for WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with Study With Arup AI Assistant.",
-  keywords: ["WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With Arup", "AI Tutor"],
-  authors: [{ name: "Study With Arup Team" }],
+  title: "Study With RootX | West Bengal Competitive Exam Prep",
+  description: "Prepare smart for WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with Study With RootX AI Assistant.",
+  keywords: ["WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With RootX", "AI Tutor"],
+  authors: [{ name: "Study With RootX Team" }],
   manifest: "/manifest.json",
   robots: "index, follow",
   verification: {
     google: "QPmC59486DdFsTDZw3g0GstUJ1U5phBQ-v-rzljXnb0",
   },
   openGraph: {
-    title: "Study With Arup | West Bengal Exam Prep Platform",
+    title: "Study With RootX | West Bengal Exam Prep Platform",
     description: "The best preparation portal for WBP Constable, SSC GD, Agniveer Army, and WB Panchayat exams.",
-    siteName: "Study With Arup",
+    siteName: "Study With RootX",
     type: "website",
   },
 };

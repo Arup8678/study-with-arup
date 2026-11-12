@@ -3,8 +3,8 @@ import { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Study With Arup",
-    short_name: "StudyWithArup",
+    name: "Study With RootX",
+    short_name: "StudyWithRootX",
     description: "Best Exam Preparation Platform for WBP Constable, SSC GD, Agniveer Army & WB Panchayat exams in West Bengal.",
     start_url: "/",
     scope: "/",

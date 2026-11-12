@@ -67,7 +67,7 @@ function generateAIResponse(query: string): string {
       `3. **LCM & HCF Formula**: Product of 2 numbers = HCF × LCM.`;
   }
 
-  return `🤖 **Study With Arup AI Mentor**:\n\n` +
+  return `🤖 **Study With RootX AI Mentor**:\n\n` +
     `I can help you prepare for **WBP Constable**, **SSC GD**, **Agniveer Army**, and **WB Panchayat** exams!\n\n` +
     `Ask me about:\n` +
     `• Specific subject notes (History, Geography, Polity, Science, Maths)\n` +
