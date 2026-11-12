@@ -49,6 +49,7 @@ export default function Footer() {
               <li><Link href="/exams/agniveer-army" className="hover:text-white transition-colors">Agniveer Army</Link></li>
               <li><Link href="/exams/wb-panchayat" className="hover:text-white transition-colors">WB Panchayat</Link></li>
               <li><Link href="/exams/psc-miscellaneous" className="hover:text-white transition-colors">PSC Miscellaneous</Link></li>
+              <li><Link href="/exams/psc-ido" className="hover:text-white transition-colors">PSC IDO</Link></li>
             </ul>
           </div>
 

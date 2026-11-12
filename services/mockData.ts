@@ -527,6 +527,56 @@ export const EXAMS_DATA: Exam[] = [
         ]
       }
     ]
+  },
+  {
+    id: "psc-ido",
+    name: "PSC IDO (শিল্প উন্নয়ন আধিকারিক)",
+    description: "WBPSC recruits Industrial Development Officers (IDO) for the Department of MSME & Textiles, Govt. of West Bengal. Advt. No. 15/2024, 247 vacancies.",
+    iconName: "Factory",
+    activeStudents: 0,
+    totalQuestions: 0,
+    totalMockTests: 0,
+    details: "Written Exam: 100 marks | 100 MCQs | 90 minutes | Negative marking: 0.25 per wrong answer. Followed by Personality Test (15 marks). Final merit out of 115.",
+    officialLink: "https://psc.wb.gov.in",
+    syllabus: [
+      "English — 15 Marks",
+      "Industrial Safety & Pollution Control — 10 Marks",
+      "Environment, Energy Conservation & Renewable Energy — 15 Marks",
+      "Physical Science — 15 Marks",
+      "Computer Knowledge — 10 Marks",
+      "Industrial Scenario & Potential in West Bengal — 15 Marks",
+      "Mental Ability & Arithmetic — 20 Marks"
+    ],
+    examPattern: {
+      totalQuestions: 100,
+      totalMarks: 100,
+      durationMinutes: 90,
+      negativeMarking: 0.25,
+      sections: [
+        { name: "English", questions: 15, marks: 15 },
+        { name: "Industrial Safety & Pollution Control", questions: 10, marks: 10 },
+        { name: "Environment, Energy & Renewables", questions: 15, marks: 15 },
+        { name: "Physical Science", questions: 15, marks: 15 },
+        { name: "Computer Knowledge", questions: 10, marks: 10 },
+        { name: "Industrial Scenario of West Bengal", questions: 15, marks: 15 },
+        { name: "Mental Ability & Arithmetic", questions: 20, marks: 20 }
+      ]
+    },
+    selectionProcess: [
+      "Written Examination (OMR-based MCQ, 100 marks)",
+      "Personality Test (Interview, 15 marks)"
+    ],
+    subjectIds: ["english", "mathematics", "reasoning", "science"],
+    notifications: [
+      {
+        id: "ido-n1",
+        title: "WBPSC IDO Recruitment 2024 (Advt. No. 15/2024) — 247 Posts",
+        type: "Recruitment",
+        date: "2026-11-06",
+        desc: "Online applications are open from 6 November 2026 to 26 November 2026 (3 PM). Application edit and document upload window: 27 November to 2 December 2026.",
+        officialLink: "https://psc.wb.gov.in"
+      }
+    ]
   }
 ];
 
@@ -559,7 +609,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Calculator",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "wb-panchayat", "psc-miscellaneous"]
+    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "wb-panchayat", "psc-miscellaneous", "psc-ido"]
   },
   {
     id: "reasoning",
@@ -568,7 +618,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Brain",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "agniveer-army"]
+    examIds: ["wbp-constable", "ssc-gd", "agniveer-army", "psc-ido"]
   },
   {
     id: "english",
@@ -577,7 +627,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "BookOpen",
     questionCount: 0,
     progress: 0,
-    examIds: ["wbp-constable", "ssc-gd", "wb-panchayat"]
+    examIds: ["wbp-constable", "ssc-gd", "wb-panchayat", "psc-ido"]
   },
   {
     id: "science",
@@ -586,7 +636,7 @@ export const SUBJECTS_DATA: Subject[] = [
     iconName: "Atom",
     questionCount: 0,
     progress: 0,
-    examIds: ["agniveer-army"]
+    examIds: ["agniveer-army", "psc-ido"]
   },
   {
     id: "bengali",

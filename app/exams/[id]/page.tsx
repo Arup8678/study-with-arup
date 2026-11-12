@@ -13,6 +13,7 @@ const EXAM_GRADIENTS: Record<string, string> = {
   "agniveer-army":  "from-amber-600 to-orange-700",
   "wb-panchayat":   "from-purple-600 to-violet-700",
   "psc-miscellaneous": "from-rose-600 to-pink-700",
+  "psc-ido": "from-teal-600 to-cyan-700",
 };
 
 const OPTIONS = [
