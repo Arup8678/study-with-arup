@@ -32,7 +32,7 @@ export default function ContactPage() {
       {/* Title */}
       <div className="space-y-2 text-center">
         <h1 className="text-3xl sm:text-4xl font-extrabold font-heading text-slate-900 dark:text-white">
-          Contact Study With Arup
+          Contact Study With RootX
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-sm max-w-xl mx-auto">
           Have questions about WBP Constable, SSC GD, Agniveer Army or WB Panchayat exam preparation? Contact us directly.
@@ -52,8 +52,8 @@ export default function ContactPage() {
               </div>
               <div>
                 <span className="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">Mobile Number</span>
-                <a href="tel:9382326813" className="text-base font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
-                  +91 9382326813
+                <a href="tel:8944907578" className="text-base font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+                  +91 8944907578
                 </a>
               </div>
             </div>

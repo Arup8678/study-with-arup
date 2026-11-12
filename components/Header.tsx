@@ -45,7 +45,7 @@ export default function Header() {
             SWA
           </div>
           <span className={`font-extrabold font-heading text-base tracking-tight hidden sm:block ${solidBg ? "text-slate-900 dark:text-white" : "text-white"}`}>
-            Study With Arup
+            Study With RootX
           </span>
         </Link>
 
@@ -78,8 +78,8 @@ export default function Header() {
 
           {/* Contact Quick Info (desktop) */}
           <div className={`hidden lg:flex items-center gap-3 text-xs border-r pr-3 my-1 ${solidBg ? "border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400" : "border-white/20 text-white/80"}`}>
-            <a href="tel:9382326813" className="flex items-center gap-1 hover:underline">
-              <Phone size={12} className="text-emerald-500" /> 9382326813
+            <a href="tel:8944907578" className="flex items-center gap-1 hover:underline">
+              <Phone size={12} className="text-emerald-500" /> 8944907578
             </a>
             <a href="mailto:fitcop455@gmail.com" className="flex items-center gap-1 hover:underline">
               <Mail size={12} className="text-blue-500" /> fitcop455@gmail.com
@@ -151,8 +151,8 @@ export default function Header() {
 
           <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
             <div className="font-bold text-slate-900 dark:text-white mb-1">Direct Contact:</div>
-            <a href="tel:9382326813" className="flex items-center gap-2 text-slate-700 dark:text-slate-200 font-medium">
-              <Phone size={13} className="text-emerald-500" /> Mobile: 9382326813
+            <a href="tel:8944907578" className="flex items-center gap-2 text-slate-700 dark:text-slate-200 font-medium">
+              <Phone size={13} className="text-emerald-500" /> Mobile: 8944907578
             </a>
             <a href="mailto:fitcop455@gmail.com" className="flex items-center gap-2 text-slate-700 dark:text-slate-200 font-medium">
               <Mail size={13} className="text-blue-500" /> Email: fitcop455@gmail.com

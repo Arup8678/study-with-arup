@@ -89,7 +89,7 @@ function getFullAIAnswer(query: string): string {
     `Great question! To get maximum marks in West Bengal competitive exams:\n\n` +
     `1. Revise History, Geography, and Science fundamentals regularly.\n` +
     `2. Practice 10th level Mathematics daily (Percentage, Ratio, Time & Work).\n` +
-    `3. Take full length Mock Tests on Study With Arup to improve speed and accuracy!`;
+    `3. Take full length Mock Tests on Study With RootX to improve speed and accuracy!`;
 }
 
 export default function AITutorPage() {

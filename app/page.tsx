@@ -75,7 +75,7 @@ export default function HomePage() {
           {/* Title */}
           <div className="space-y-3">
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-heading text-white leading-none tracking-tight drop-shadow-2xl">
-              Study With Arup
+              Study With RootX
             </h1>
             <p className="text-lg sm:text-xl text-white/75 font-light tracking-wide">
               Prepare Smart. Serve India.
