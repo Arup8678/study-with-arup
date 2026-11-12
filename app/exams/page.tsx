@@ -12,6 +12,7 @@ const EXAM_GRADIENTS: Record<string, string> = {
   "agniveer-army":  "from-amber-500/10 to-orange-500/10",
   "wb-panchayat":   "from-purple-500/10 to-violet-500/10",
   "psc-miscellaneous": "from-rose-500/10 to-pink-500/10",
+  "psc-ido":        "from-teal-500/10 to-cyan-500/10",
 };
 
 const EXAM_ICONS: Record<string, string> = {
@@ -20,6 +21,7 @@ const EXAM_ICONS: Record<string, string> = {
   "agniveer-army":  "🪖",
   "wb-panchayat":   "🏛️",
   "psc-miscellaneous": "💼",
+  "psc-ido":        "🏭",
 };
 
 const EXAM_BADGE: Record<string, { label: string; color: string }> = {
@@ -28,6 +30,7 @@ const EXAM_BADGE: Record<string, { label: string; color: string }> = {
   "agniveer-army":  { label: "Indian Army",    color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" },
   "wb-panchayat":   { label: "State Panchayat", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400" },
   "psc-miscellaneous": { label: "State PSC",   color: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400" },
+  "psc-ido":        { label: "State PSC",      color: "bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400" },
 };
 
 const CATEGORIES = [
@@ -52,7 +55,7 @@ export default function ExamsPage() {
 
     const matchCat =
       category === "all" ||
-      (category === "state"   && (exam.id === "wbp-constable" || exam.id === "wb-panchayat" || exam.id === "psc-miscellaneous")) ||
+      (category === "state"   && (exam.id === "wbp-constable" || exam.id === "wb-panchayat" || exam.id === "psc-miscellaneous" || exam.id === "psc-ido")) ||
       (category === "central" && (exam.id === "ssc-gd" || exam.id === "agniveer-army"));
 
     return matchSearch && matchCat;
