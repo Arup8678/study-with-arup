@@ -10,6 +10,7 @@ import {
   LEADERBOARD_DATA,
   SAMPLE_QUESTIONS
 } from "./mockData";
+import { IDO_SUBJECTS } from "./idoData";
 import { Exam, Subject, Topic, Quiz, MockTest, BlogItem, NotificationItem, LeaderboardUser, UserProfile, UserHistoryItem, QuizQuestion } from "@/types";
 
 const LOCAL_STORAGE_PROFILE_KEY = "exam_bangla_user_profile";
@@ -74,12 +75,51 @@ const saveLocalProfile = (profile: UserProfile) => {
   }
 };
 
+// --- PSC IDO chapters: notes and MCQs are static JSON files in /public/ido, loaded on demand ---
+export interface IdoChapter {
+  id: string;
+  title: string;
+  notes: string;
+  questions: { q: string; o: string[]; a: number; e?: string }[];
+}
+const idoCache: Record<string, Promise<IdoChapter[]>> = {};
+
+const loadIdoSubject = (subjectId: string): Promise<IdoChapter[]> => {
+  if (!idoCache[subjectId]) {
+    idoCache[subjectId] = fetch(`/ido/${subjectId}.json`)
+      .then(r => {
+        if (!r.ok) throw new Error(`Could not load ${subjectId}`);
+        return r.json();
+      })
+      .then(j => j.chapters as IdoChapter[])
+      .catch(err => { delete idoCache[subjectId]; throw err; });
+  }
+  return idoCache[subjectId];
+};
+
+const idoSubjectOf = (chapterId: string) => chapterId.replace(/-\d+$/, "");
+
+const getIdoChapter = async (chapterId: string): Promise<IdoChapter | null> => {
+  try {
+    const chapters = await loadIdoSubject(idoSubjectOf(chapterId));
+    return chapters.find(c => c.id === chapterId) || null;
+  } catch {
+    return null;
+  }
+};
+
 export const dbService = {
+  getIdoChapter,
+
   // --- EXAMS ---
   async getExams(): Promise<Exam[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from("exams").select("*");
-      if (!error && data) return data as Exam[];
+      if (!error && data) {
+        const list = data as Exam[];
+        const ido = EXAMS_DATA.find(e => e.id === "psc-ido");
+        return ido && !list.some(e => e.id === ido.id) ? [...list, ido] : list;
+      }
     }
     return EXAMS_DATA;
   },
@@ -96,7 +136,10 @@ export const dbService = {
   async getSubjects(): Promise<Subject[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from("subjects").select("*");
-      if (!error && data) return data as Subject[];
+      if (!error && data) {
+        const list = data as Subject[];
+        return [...list, ...IDO_SUBJECTS.filter(s => !list.some(x => x.id === s.id))];
+      }
     }
     return SUBJECTS_DATA;
   },
@@ -136,6 +179,28 @@ export const dbService = {
   },
 
   async getQuizById(id: string): Promise<Quiz | null> {
+    if (id.startsWith("ido-")) {
+      const ch = await getIdoChapter(id);
+      if (!ch || ch.questions.length === 0) return null;
+      const subject = SUBJECTS_DATA.find(s => s.id === idoSubjectOf(id));
+      return {
+        id,
+        title: `${ch.title} — Mock Test`,
+        subjectId: idoSubjectOf(id),
+        subjectName: subject?.name || "PSC IDO",
+        difficulty: "Medium",
+        timeLimitMinutes: Math.max(5, Math.ceil(ch.questions.length * 0.9)),
+        questionsCount: ch.questions.length,
+        date: "2026-11-12",
+        questions: ch.questions.map((q, i) => ({
+          id: `${id}-q${i + 1}`,
+          question: q.q,
+          options: q.o,
+          correctAnswerIndex: q.a,
+          explanation: q.e || ""
+        }))
+      };
+    }
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from("quizzes").select("*, questions(*)").eq("id", id).single();
       if (!error && data) return data as Quiz;

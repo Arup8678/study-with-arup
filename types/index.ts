@@ -67,6 +67,10 @@ export interface Topic {
   notesContent: string;
   questionsCount: number;
   referenceLinks?: ReferenceLink[];
+  /** Chapters whose notes and MCQs are loaded on demand from a JSON file in /public. */
+  notesUrl?: string;
+  /** Quiz id for the chapter's mock test, if it has one. */
+  quizId?: string;
 }
 
 export interface QuizQuestion {

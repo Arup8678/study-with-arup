@@ -15,6 +15,13 @@ const SUBJECT_ICONS: Record<string, string> = {
   "english":      "📝",
   "science":      "🔬",
   "bengali":      "✍️",
+  "ido-safety":          "⛑️",
+  "ido-environment":     "🌱",
+  "ido-physical-science": "🔬",
+  "ido-computer":        "💻",
+  "ido-wb-industry":     "🏭",
+  "ido-english":         "📝",
+  "ido-mental-ability":  "🧮",
 };
 
 const SUBJECT_COLORS: Record<string, string> = {
@@ -25,6 +32,13 @@ const SUBJECT_COLORS: Record<string, string> = {
   "english":      "from-teal-50 to-cyan-50 dark:from-teal-900/10 dark:to-cyan-900/5 border-teal-200/60 dark:border-teal-800/30",
   "science":      "from-red-50 to-rose-50 dark:from-red-900/10 dark:to-rose-900/5 border-red-200/60 dark:border-red-800/30",
   "bengali":      "from-pink-50 to-fuchsia-50 dark:from-pink-900/10 dark:to-fuchsia-900/5 border-pink-200/60 dark:border-pink-800/30",
+  "ido-safety":          "from-amber-50 to-orange-50 dark:from-amber-900/10 dark:to-orange-900/5 border-amber-200/60 dark:border-amber-800/30",
+  "ido-environment":     "from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/5 border-green-200/60 dark:border-green-800/30",
+  "ido-physical-science": "from-red-50 to-rose-50 dark:from-red-900/10 dark:to-rose-900/5 border-red-200/60 dark:border-red-800/30",
+  "ido-computer":        "from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/5 border-blue-200/60 dark:border-blue-800/30",
+  "ido-wb-industry":     "from-teal-50 to-cyan-50 dark:from-teal-900/10 dark:to-cyan-900/5 border-teal-200/60 dark:border-teal-800/30",
+  "ido-english":         "from-purple-50 to-violet-50 dark:from-purple-900/10 dark:to-violet-900/5 border-purple-200/60 dark:border-purple-800/30",
+  "ido-mental-ability":  "from-orange-50 to-amber-50 dark:from-orange-900/10 dark:to-amber-900/5 border-orange-200/60 dark:border-orange-800/30",
 };
 
 export default function PreparePage({ params }: { params: { id: string } }) {
