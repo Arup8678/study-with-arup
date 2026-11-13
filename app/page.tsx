@@ -2,6 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
+import IdoCourseBanner from "@/components/IdoCourseBanner";
+import { IDO_COURSE } from "@/lib/course";
 
 const EXAM_PILLS = [
   { id: "wbp-constable",  label: "WBP Constable",  emoji: "🛡️" },
@@ -95,6 +97,16 @@ export default function HomePage() {
             Choose Your Exam →
           </Link>
 
+          {/* Course offer pill */}
+          <div>
+            <Link
+              href="/courses/psc-ido"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500 to-rose-600 text-white text-xs sm:text-sm font-bold shadow-lg hover:scale-105 transition-transform"
+            >
+              🔥 New: PSC IDO Course <span className="line-through opacity-75">₹{IDO_COURSE.regularPrice}</span> ₹{IDO_COURSE.offerPrice} →
+            </Link>
+          </div>
+
           {/* Exam Pills */}
           <div className="flex flex-wrap justify-center gap-2 pt-2">
             {EXAM_PILLS.map(exam => (
@@ -113,6 +125,9 @@ export default function HomePage() {
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F8FAFC] dark:from-[#0f172a] to-transparent" />
       </section>
+
+      {/* ── PAID COURSE AD ─────────────────────────── */}
+      <IdoCourseBanner />
 
       {/* ── PSC IDO SECTION ─────────────────────────── */}
       <section id="psc-ido" className="px-4 sm:px-6 py-16 sm:py-20">
