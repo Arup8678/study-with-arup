@@ -2,7 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, Copy, Check, Clock, XCircle, Smartphone, ShieldCheck, ArrowLeft, Sparkles } from "lucide-react";
+import { CheckCircle2, Copy, Check, Clock, XCircle, Smartphone, ShieldCheck, ArrowLeft, Sparkles, LogIn, GraduationCap } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { authFetch, studentMobile, studentName, useStudent } from "@/lib/studentAuth";
 import {
   IDO_COURSE, ENROLL_STORAGE_KEY, Enrollment, UTR_REGEX, PHONE_REGEX,
   normalisePhone, normaliseUtr, upiDeepLink,
@@ -32,6 +34,7 @@ export default function EnrollClient() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { user: student, loading: studentLoading, configured: loginReady } = useStudent();
 
   // Restore a previous enrollment and refresh its status from the server.
   useEffect(() => {
@@ -51,6 +54,30 @@ export default function EnrollClient() {
       })
       .catch(() => {});
   }, []);
+
+  // Logged-in student: pre-fill the form and load the enrollment saved on their account.
+  useEffect(() => {
+    if (studentLoading || !student) return;
+    setName(n => n || studentName(student));
+    setPhone(p => p || studentMobile(student));
+    (async () => {
+      try {
+        const r = await authFetch("/api/me/enrollment", { cache: "no-store" });
+        const d = await r.json();
+        let found: Enrollment | null = d?.enrollment ?? null;
+        // Paid on this device before logging in? Link that enrollment to the account.
+        const local = loadEnrollment();
+        if (!found && d?.ready && local && local.utr && local.phone) {
+          const c = await authFetch("/api/me/enrollment", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ utr: local.utr, phone: local.phone }),
+          });
+          found = (await c.json())?.enrollment ?? null;
+        }
+        if (found) { saveEnrollment(found); setEnrollment(found); setStep("done"); }
+      } catch { /* keep the local copy */ }
+    })();
+  }, [student, studentLoading]);
 
   // On phones the steps sit below the course card, so bring them into view.
   useEffect(() => {
@@ -73,7 +100,7 @@ export default function EnrollClient() {
     if (!formValid) { setError("Please check your name, 10-digit mobile number and 12-digit UTR."); return; }
     setSubmitting(true);
     try {
-      const res = await fetch("/api/enroll", {
+      const res = await authFetch("/api/enroll", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone: phoneClean, utr: utrClean }),
@@ -82,6 +109,12 @@ export default function EnrollClient() {
       if (!res.ok) { setError(data.error || "Something went wrong. Please try again."); return; }
       saveEnrollment(data.enrollment);
       setEnrollment(data.enrollment);
+      if (student && supabase && (!studentName(student) || !studentMobile(student))) {
+        supabase.auth.updateUser({ data: {
+          ...(studentName(student) ? {} : { full_name: name.trim() }),
+          ...(studentMobile(student) ? {} : { mobile: phoneClean }),
+        } }).catch(() => {});
+      }
       setStep("done");
       document.getElementById("enroll-steps")?.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch {
@@ -154,6 +187,15 @@ export default function EnrollClient() {
                   <div className="flex justify-between px-4 py-3"><span className="text-slate-500">Launch discount</span><span className="text-emerald-600 font-semibold">− ₹{IDO_COURSE.regularPrice - IDO_COURSE.offerPrice}</span></div>
                   <div className="flex justify-between px-4 py-3 font-bold text-base"><span className="text-slate-900 dark:text-white">You pay</span><span className="text-rose-600">₹{IDO_COURSE.offerPrice}</span></div>
                 </div>
+                {loginReady && !studentLoading && !student && (
+                  <div className="rounded-2xl border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/30 p-4 space-y-3">
+                    <p className="text-sm text-blue-900 dark:text-blue-200"><b>Log in first</b> (Gmail or mobile, no password) so your course and payment status stay saved in your account.</p>
+                    <Link href="/login?next=/courses/psc-ido" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold"><LogIn className="w-4 h-4" /> Login / Sign up</Link>
+                  </div>
+                )}
+                {student && (
+                  <p className="text-xs text-slate-500 flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-blue-600" /> Logged in as <b>{studentName(student) || student.email || student.phone}</b>. This course will be saved to your account.</p>
+                )}
                 <button onClick={() => setStep("pay")} className="w-full py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white font-extrabold text-base shadow-lg transition-transform hover:scale-[1.01]">
                   Pay ₹{IDO_COURSE.offerPrice} →
                 </button>
@@ -225,7 +267,7 @@ export default function EnrollClient() {
                     <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Enrolled successfully! 🎉</h2>
                     <p className="text-slate-600 dark:text-slate-300">Welcome, <b>{enrollment.name}</b>. You&apos;re enrolled in the {IDO_COURSE.title}.</p>
                     {enrollment.status === "approved" ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold"><ShieldCheck className="w-4 h-4" /> Payment verified</span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold"><ShieldCheck className="w-4 h-4" /> Payment verified ✓</span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-bold"><Clock className="w-4 h-4" /> Payment verification in progress (usually within a few hours)</span>
                     )}
@@ -236,6 +278,11 @@ export default function EnrollClient() {
                   <div className="flex justify-between px-4 py-2.5"><span className="text-slate-500">Mobile</span><span>{enrollment.phone}</span></div>
                   <div className="flex justify-between px-4 py-2.5"><span className="text-slate-500">Amount</span><span>₹{enrollment.amount}</span></div>
                 </div>
+                {student ? (
+                  <Link href="/my-course" className="block py-3 rounded-2xl border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300 font-bold hover:bg-blue-50 dark:hover:bg-blue-950/30">Go to My Course</Link>
+                ) : loginReady && (
+                  <Link href="/login?next=/courses/psc-ido" className="block py-3 rounded-2xl border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300 font-bold hover:bg-blue-50 dark:hover:bg-blue-950/30">Log in to save this course to your account</Link>
+                )}
                 <div className="grid sm:grid-cols-2 gap-3">
                   <Link href="/exams/psc-ido/prepare" className="py-3.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold">Start Preparing →</Link>
                   <a href={`https://wa.me/91${IDO_COURSE.supportPhone}?text=${waText}`} target="_blank" rel="noopener noreferrer" className="py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold">Send details on WhatsApp</a>

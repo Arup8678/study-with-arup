@@ -7,6 +7,7 @@ import {
   Trash2, Mail, Flame, Trophy, Coins
 } from "lucide-react";
 import { dbService } from "@/services/db";
+import { signOutStudent } from "@/lib/studentAuth";
 import { UserProfile } from "@/types";
 
 export default function ProfilePage() {
@@ -55,9 +56,7 @@ export default function ProfilePage() {
   const handleResetProfile = () => {
     if (confirm("Are you sure you want to reset all your learning history, XP, coins, and streaks? This cannot be undone.")) {
       localStorage.removeItem("exam_bangla_user_profile");
-      localStorage.removeItem("exam_bangla_logged_in");
-      window.dispatchEvent(new Event("auth-state-change"));
-      router.push("/");
+      signOutStudent().finally(() => router.push("/"));
     }
   };
 

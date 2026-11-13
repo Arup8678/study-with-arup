@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun, Menu, X, Shield, Phone, Mail } from "lucide-react";
+import { Moon, Sun, Menu, X, Shield, Phone, Mail, LogIn, GraduationCap } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { useStudent } from "@/lib/studentAuth";
 
 const NAV_LINKS = [
   { href: "/",               label: "Home" },
@@ -20,6 +21,9 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { user: student, loading: studentLoading } = useStudent();
+  const studentHref = student ? "/my-course" : "/login";
+  const studentText = student ? "My Course" : "Login";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -99,6 +103,20 @@ export default function Header() {
             {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
+          {/* Student Login / My Course */}
+          {!studentLoading && (
+            <Link
+              href={studentHref}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
+                solidBg
+                  ? "bg-blue-600 text-white hover:bg-blue-700 shadow-sm shadow-blue-500/20"
+                  : "bg-white text-blue-700 hover:bg-blue-50"
+              }`}
+            >
+              {student ? <GraduationCap size={14} /> : <LogIn size={13} />} {studentText}
+            </Link>
+          )}
+
           {/* Admin Button */}
           <Link
             href="/admin"
@@ -158,6 +176,14 @@ export default function Header() {
               <Mail size={13} className="text-blue-500" /> Email: fitcop455@gmail.com
             </a>
           </div>
+
+          <Link
+            href={studentHref}
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
+          >
+            {student ? <GraduationCap size={14} /> : <LogIn size={14} />} {student ? "My Course" : "Student Login / Sign up"}
+          </Link>
 
           <Link
             href="/admin"
