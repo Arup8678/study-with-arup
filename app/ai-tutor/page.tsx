@@ -85,7 +85,7 @@ function getFullAIAnswer(query: string): string {
       `• **Key Schemes**: MGNREGA (100 days employment), PMGSY (Rural roads), PMAY-G (Rural housing), Lakshmir Bhandar, Kanyashree.`;
   }
 
-  return `🤖 **Arup AI Study Assistant Response**:\n\n` +
+  return `🤖 **RootX AI Study Assistant Response**:\n\n` +
     `Great question! To get maximum marks in West Bengal competitive exams:\n\n` +
     `1. Revise History, Geography, and Science fundamentals regularly.\n` +
     `2. Practice 10th level Mathematics daily (Percentage, Ratio, Time & Work).\n` +
@@ -97,7 +97,7 @@ export default function AITutorPage() {
     {
       id: "m-1",
       sender: "ai",
-      text: "👋 Welcome to **Arup AI Tutor**! I am your AI study mentor for **WBP Constable**, **SSC GD**, **Agniveer Army**, and **WB Panchayat** exams. Ask me any doubt or select a topic below!",
+      text: "👋 Welcome to **RootX AI Tutor**! I am your AI study mentor for **WBP Constable**, **SSC GD**, **Agniveer Army**, and **WB Panchayat** exams. Ask me any doubt or select a topic below!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -136,7 +136,8 @@ export default function AITutorPage() {
 
       let aiReplyText = data?.reply;
       if (!aiReplyText) {
-        aiReplyText = getFullAIAnswer(query);
+        const fallback = getFullAIAnswer(query);
+        aiReplyText = data?.notice ? `ℹ️ ${data.notice}\n\n${fallback}` : fallback;
       }
 
       const aiMsg: Message = {
@@ -175,7 +176,7 @@ export default function AITutorPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-extrabold font-heading text-white">Arup AI Exam Tutor</h1>
+                <h1 className="text-xl font-extrabold font-heading text-white">RootX AI Exam Tutor</h1>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30 flex items-center gap-1">
                   <Zap size={10} /> Gemini AI
                 </span>
@@ -233,7 +234,7 @@ export default function AITutorPage() {
             {isTyping && (
               <div className="flex items-center gap-2 text-slate-400 text-xs py-2">
                 <Bot size={18} className="text-blue-500 animate-spin" />
-                <span>Arup AI Tutor is preparing response...</span>
+                <span>RootX AI Tutor is preparing response...</span>
               </div>
             )}
           </div>
