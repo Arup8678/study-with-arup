@@ -36,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/exams/psc-ido/news",
     "/exams/psc-ido/pyq",
     "/exams/psc-ido/prepare",
+    "/courses/psc-ido",
     "/ai-tutor",
     "/current-affairs",
     "/contact",
