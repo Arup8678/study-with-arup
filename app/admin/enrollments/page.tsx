@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Lock, RefreshCw, Check, X, RotateCcw, Search } from "lucide-react";
 import type { Enrollment, EnrollmentStatus } from "@/lib/course";
+import StudentPasswordReset from "@/components/StudentPasswordReset";
 
 const BADGE: Record<EnrollmentStatus, string> = {
   pending: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
@@ -153,6 +154,7 @@ export default function EnrollmentsAdmin() {
             </tbody>
           </table>
         </div>
+        <StudentPasswordReset />
       </div>
     </div>
   );

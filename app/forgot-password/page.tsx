@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-// Students log in with Google, an email code or a mobile code: there is no password to reset.
+// "Forgot password?" is a step on the login page.
 export default function ForgotPasswordPage() {
   redirect("/login");
 }

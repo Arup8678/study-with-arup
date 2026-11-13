@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Lock, Mail, Smartphone, Loader2, Trophy } from "lucide-react";
+import { Lock, Smartphone, Loader2, Trophy, UserPlus } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 /** Keeps a finished test's answers across the login redirect (per browser tab). */
@@ -57,7 +57,7 @@ export default function ResultLoginGate({ title, answered, total, next }: { titl
         <div className="p-6 sm:p-8 space-y-4">
           <div>
             <h2 className="text-lg font-extrabold text-slate-900 dark:text-white">Log in free to see your score</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">See your marks, correct answers and explanations. No password needed. New students get an account automatically.</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">See your marks, correct answers and explanations. Takes 30 seconds: just your mobile number or email and a password.</p>
           </div>
           {error && <p className="text-xs text-red-600 bg-red-50 dark:bg-red-950/30 rounded-xl px-3 py-2">{error}</p>}
           <button onClick={google} disabled={busy} className="w-full py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-white font-semibold flex items-center justify-center gap-3 text-sm disabled:opacity-50">
@@ -72,7 +72,10 @@ export default function ResultLoginGate({ title, answered, total, next }: { titl
             Continue with Google (Gmail)
           </button>
           <Link href={loginHref} className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold flex items-center justify-center gap-2 text-sm">
-            <Mail className="w-4 h-4" /> Email code <span className="opacity-60">/</span> <Smartphone className="w-4 h-4" /> Mobile OTP
+            <Smartphone className="w-4 h-4" /> Log in with mobile / email
+          </Link>
+          <Link href={`${loginHref}&mode=signup`} className="w-full py-3 rounded-xl bg-blue-50 dark:bg-blue-950/30 hover:bg-blue-100 text-blue-700 dark:text-blue-300 font-semibold flex items-center justify-center gap-2 text-sm">
+            <UserPlus className="w-4 h-4" /> New student? Create account
           </Link>
           <p className="text-[11px] text-slate-400">Your answers are saved. After login you come straight back to your result.</p>
         </div>

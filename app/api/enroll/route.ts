@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { IDO_COURSE, validateEnrollment } from "@/lib/course";
 import { supabaseAdmin, isEnrollmentDbConfigured, ENROLLMENTS_TABLE } from "@/lib/supabaseAdmin";
-import { getStudentFromRequest, isMissingColumn } from "@/lib/studentServer";
+import { getStudentFromRequest, isMissingColumn, studentRealEmail } from "@/lib/studentServer";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
 
   // If the student is logged in, tie the enrollment to their account.
   const student = await getStudentFromRequest(req);
-  const linked = student ? { ...record, user_id: student.id, email: student.email ?? null } : record;
+  const linked = student ? { ...record, user_id: student.id, email: studentRealEmail(student) } : record;
 
   let { data, error } = await supabaseAdmin.from(ENROLLMENTS_TABLE).insert(linked).select().single();
   if (error && student && isMissingColumn(error)) {

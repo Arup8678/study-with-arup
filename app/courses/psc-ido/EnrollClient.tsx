@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, Copy, Check, Clock, XCircle, Smartphone, ShieldCheck, ArrowLeft, Sparkles, LogIn, GraduationCap } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { authFetch, studentMobile, studentName, useStudent } from "@/lib/studentAuth";
+import { authFetch, studentLabel, studentMobile, studentName, useStudent } from "@/lib/studentAuth";
 import {
   IDO_COURSE, ENROLL_STORAGE_KEY, Enrollment, UTR_REGEX, PHONE_REGEX,
   normalisePhone, normaliseUtr, upiDeepLink,
@@ -189,12 +189,12 @@ export default function EnrollClient() {
                 </div>
                 {loginReady && !studentLoading && !student && (
                   <div className="rounded-2xl border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/30 p-4 space-y-3">
-                    <p className="text-sm text-blue-900 dark:text-blue-200"><b>Log in first</b> (Gmail or mobile, no password) so your course and payment status stay saved in your account.</p>
+                    <p className="text-sm text-blue-900 dark:text-blue-200"><b>Log in first</b> (mobile number or Gmail) so your course and payment status stay saved in your account.</p>
                     <Link href="/login?next=/courses/psc-ido" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold"><LogIn className="w-4 h-4" /> Login / Sign up</Link>
                   </div>
                 )}
                 {student && (
-                  <p className="text-xs text-slate-500 flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-blue-600" /> Logged in as <b>{studentName(student) || student.email || student.phone}</b>. This course will be saved to your account.</p>
+                  <p className="text-xs text-slate-500 flex items-center gap-1.5"><GraduationCap className="w-4 h-4 text-blue-600" /> Logged in as <b>{studentLabel(student)}</b>. This course will be saved to your account.</p>
                 )}
                 <button onClick={() => setStep("pay")} className="w-full py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white font-extrabold text-base shadow-lg transition-transform hover:scale-[1.01]">
                   Pay ₹{IDO_COURSE.offerPrice} →

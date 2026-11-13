@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { IDO_COURSE, normalisePhone, normaliseUtr } from "@/lib/course";
 import { supabaseAdmin, ENROLLMENTS_TABLE } from "@/lib/supabaseAdmin";
-import { getStudentFromRequest, isMissingColumn } from "@/lib/studentServer";
+import { getStudentFromRequest, isMissingColumn, studentRealEmail } from "@/lib/studentServer";
 
 export const dynamic = "force-dynamic";
 
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
   if (!utr || !phone) return NextResponse.json({ error: "Bad request" }, { status: 400 });
 
   const { data, error } = await supabaseAdmin.from(ENROLLMENTS_TABLE)
-    .update({ user_id: student.id, email: student.email ?? null })
+    .update({ user_id: student.id, email: studentRealEmail(student) })
     .eq("utr", utr).eq("phone", phone).is("user_id", null)
     .select().maybeSingle();
   if (error) {

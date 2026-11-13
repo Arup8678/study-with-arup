@@ -1,109 +1,83 @@
-# Student login setup (no password)
+# Student login setup (mobile number or email + password)
 
-Students can log in or sign up in 3 ways. Nobody needs a password.
+Students create an account with **mobile number or email + a password**. There is no OTP and no email code.
+**Continue with Google (Gmail)** is also there as a one-tap option.
 
-| Way | Works after | Cost |
-|---|---|---|
-| **Continue with Google (Gmail)** | Steps 1, 2, 3, 4 | Free |
-| **Email code** (6-digit code sent by email) | Steps 1, 2, 3, 5 | Free (custom email sender recommended) |
-| **Mobile OTP** (6-digit SMS) | Step 6 | Paid SMS provider + Indian DLT rules |
+> If the login page says **"Login is being set up"**, it means Step 1 is not done yet for that website
+> (the Supabase keys are missing in Vercel). Do Step 1, then redeploy.
 
-Until mobile OTP is set up, the Mobile tab says "coming soon" and Google + email keep working.
-
-You need to be logged in to: **Supabase** (supabase.com), **Vercel** (vercel.com) and **Google Cloud** (console.cloud.google.com).
-In the steps below, replace `YOUR-SITE` with your real website address (for example `study-with-arup.vercel.app` or your own domain).
+You need to be logged in to **Supabase** (supabase.com) and **Vercel** (vercel.com). Google Cloud is only needed for Step 4.
+Replace `YOUR-SITE` with your real website address (for example `study-with-arup.vercel.app` or your own domain).
 
 ---
 
 ## Step 1. Add the keys to Vercel
 
-1. Open **Supabase** → your project → **Project Settings** (gear icon) → **API Keys** (on older screens: **API**).
-2. Copy the **Project URL** and the **anon / public** key (on newer screens it may be called the **publishable** key).
-3. Open **Vercel** → project **study-with-arup** → **Settings** → **Environment Variables**. Add (tick Production, Preview and Development):
+1. **Supabase** → your project → **Project Settings** (gear icon) → **API Keys** (older screens: **API**).
+2. Copy the **Project URL** and the **anon / public** key (newer screens may call it the **publishable** key).
+3. **Vercel** → project **study-with-arup** → **Settings** → **Environment Variables**. Add these, and tick **Production, Preview and Development** for each:
    - `NEXT_PUBLIC_SUPABASE_URL` = the Project URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = the anon / publishable key
-   - `SUPABASE_SERVICE_ROLE_KEY` = the **service_role / secret** key (you may already have this from the course enrollment setup). Never share this one.
-4. Go to **Deployments** → the latest one → **⋯** → **Redeploy**, so the new keys are used.
+   - `SUPABASE_SERVICE_ROLE_KEY` = the **service_role / secret** key (needed for enrollments and for resetting student passwords). Never share this one.
+4. **Deployments** → latest one → **⋯** → **Redeploy**.
 
-## Step 2. Run one SQL script (links courses to student accounts)
+(If you have two Vercel projects, `study-with-arup` and `study-with-arup-5295`, do this in the one your website uses.)
+
+## Step 2. Switch on password login and switch OFF email confirmation  ← most important
+
+1. Supabase → **Authentication** → **Sign In / Providers** (older: **Providers**).
+2. At the top, make sure **Allow new users to sign up** is **ON**.
+3. Open **Email**:
+   - **Enable Email provider**: **ON**
+   - **Confirm email**: **OFF**  (otherwise students get stuck waiting for an email)
+   - Press **Save**.
+4. Leave **Phone** turned off. It is not needed.
+
+## Step 3. Run one SQL script (links courses to student accounts)
 
 1. Supabase → **SQL Editor** → **New query**.
-2. Open the file `supabase/student_accounts.sql` from this repo, copy everything, paste it, press **Run**.
+2. Copy everything from `supabase/student_accounts.sql` in this repo, paste, press **Run**.
    (If you have not yet run `supabase/course_enrollments.sql`, run that first.)
 
-## Step 3. Tell Supabase which website addresses are allowed
+## Step 4 (optional). "Continue with Google"
 
-Supabase → **Authentication** → **URL Configuration**:
+Skip this if you only want mobile/email + password. The Google button will show an error until it is set up.
 
+**A. Allowed addresses in Supabase** → **Authentication** → **URL Configuration**:
 - **Site URL**: `https://YOUR-SITE`
-- **Redirect URLs** → **Add URL**, add each of these:
-  - `https://YOUR-SITE/auth/callback`
-  - `https://*-arup777.vercel.app/**` (so Vercel preview links can log in too)
-  - `http://localhost:3000/**` (only needed for testing on a computer)
+- **Redirect URLs** → add: `https://YOUR-SITE/**` and `https://*-arup777.vercel.app/**` → **Save**.
 
-Press **Save**.
+**B. Copy the callback address**: Supabase → **Authentication** → **Sign In / Providers** → **Google** → copy **Callback URL (for OAuth)** (looks like `https://abcd1234.supabase.co/auth/v1/callback`).
 
-## Step 4. Turn on "Continue with Google"
+**C. Google Cloud** (console.cloud.google.com):
+1. Project picker → **New project** → `Study With RootX` → **Create**, and select it.
+2. Search **Google Auth Platform** (or **APIs & Services → OAuth consent screen**) → **Get started**: app name `Study With RootX`, support email your Gmail, Audience **External**, contact email your Gmail → **Create**.
+3. **Audience** → **Publish app**.
+4. **Clients** → **Create client** → **Web application**:
+   - Authorized JavaScript origins: `https://YOUR-SITE`
+   - Authorized redirect URIs: the Supabase callback address from B
+   - **Create**, then copy **Client ID** and **Client secret**.
 
-**A. In Supabase, copy the callback address**
-1. Supabase → **Authentication** → **Sign In / Providers** (older: **Providers**) → **Google**.
-2. Copy the **Callback URL (for OAuth)**. It looks like `https://abcd1234.supabase.co/auth/v1/callback`. Keep this tab open.
-
-**B. In Google Cloud, create the login keys**
-1. Go to console.cloud.google.com. At the top, click the project picker → **New project** → name it `Study With RootX` → **Create**, and select it.
-2. Search for **Google Auth Platform** (or **APIs & Services → OAuth consent screen**) → **Get started**.
-   - App name: `Study With RootX`, support email: your Gmail.
-   - Audience: **External**. Contact email: your Gmail. Agree and **Create**.
-3. Open **Audience** → press **Publish app** → confirm. (Otherwise only test users you list can log in.)
-4. Open **Clients** (older: **Credentials → Create credentials → OAuth client ID**) → **Create client**:
-   - Application type: **Web application**, name: `Website`.
-   - **Authorized JavaScript origins** → add `https://YOUR-SITE`.
-   - **Authorized redirect URIs** → add the Supabase callback address from part A.
-   - Press **Create**. Copy the **Client ID** and **Client secret**.
-
-**C. Back in Supabase**
-1. In the Google provider page, switch **Enable Sign in with Google** on.
-2. Paste the **Client ID** and **Client Secret**. Press **Save**.
-
-Test: open `https://YOUR-SITE/login` → **Continue with Google**.
-
-## Step 5. Make the email login send a code
-
-Supabase sends a link by default. The site asks for a 6-digit code, so the email must show the code.
-
-1. Supabase → **Authentication** → **Email Templates** (may be under **Emails**).
-2. Open **Magic Link**. Replace the message body with:
-
-   ```html
-   <h2>Your Study With RootX login code</h2>
-   <p>Enter this code on the website:</p>
-   <p style="font-size:28px;font-weight:bold;letter-spacing:6px">{{ .Token }}</p>
-   <p>The code expires in 1 hour. If you did not ask for it, ignore this email.</p>
-   ```
-   Subject: `Your Study With RootX login code`. **Save**.
-3. Do the same for **Confirm signup** (new students get this one the first time).
-4. **Important:** Supabase's built-in email sender only allows a few emails per hour, which is fine for testing but not for real students. For real use, connect a free email service:
-   Supabase → **Authentication** → **SMTP Settings** (or **Emails → SMTP**) → enable **Custom SMTP** and fill in the details from a provider such as **Resend** or **Brevo** (both have free plans). Google login has no such limit, so it is the best choice for most students.
-
-## Step 6 (optional, paid). Mobile number OTP
-
-Supabase cannot send SMS by itself; you need an SMS company. This costs money for every SMS.
-
-**Indian SMS rule (DLT):** Every business SMS sent to an Indian number must use a sender ID and message template registered on a DLT portal (Jio, Airtel, Vi, etc.). Registration takes a few days and needs business/ID documents. Some providers' OTP products handle this for you; check with the provider before paying.
-
-1. Create an account with an SMS provider that Supabase supports, for example **Twilio** (use **Twilio Verify** for OTP). Check its current price for India and whether it handles DLT for you.
-2. Supabase → **Authentication** → **Sign In / Providers** → **Phone** → enable it.
-3. Choose your SMS provider and paste its keys (for Twilio Verify: Account SID, Auth Token, Verify Service SID). **Save**.
-4. Vercel → **Settings** → **Environment Variables** → add `NEXT_PUBLIC_PHONE_LOGIN` = `on` → **Redeploy**.
-
-The Mobile tab on the login page then sends a real SMS code.
+**D. Back in Supabase** → Google provider → switch **ON**, paste Client ID and Client Secret → **Save**.
 
 ---
 
+## Forgot password
+
+- **Email accounts**: "Forgot password?" on the login page emails a reset link. (Supabase's built-in email sender only allows a few emails per hour. If many students use it, connect a free sender such as Resend or Brevo under **Authentication → SMTP Settings**.) The URL Configuration in Step 4A must include `https://YOUR-SITE/**` for the link to work.
+- **Mobile number accounts**: no SMS is sent, so the page asks the student to WhatsApp you. You set a new password in **/admin/enrollments → Reset a student's password** (enter their mobile number and a new password), then tell them.
+
+## Things to know (trade-offs of no-OTP login)
+
+- **Mobile numbers are not verified.** Anyone can sign up with any number. Before giving course access, match the enrollment's UTR with your bank statement as you do now, and before resetting a password, check the WhatsApp message comes from that same number.
+- A mobile account is stored in Supabase as `91XXXXXXXXXX@mobile.studywithrootx.in`. This is only a label; nothing is ever emailed to it. Students never see it.
+- If you later want verified numbers, SMS OTP can be added (paid SMS provider + Indian DLT registration).
+
 ## What students see
 
-- Header button **Login** (or **My Course** once logged in).
-- `/login`: Continue with Google, or get a code by Email / Mobile. New students are asked for their name once.
-- `/my-course`: their name, email/mobile, and PSC IDO course status: **not enrolled**, **payment verification pending**, or **verified**. Log out button.
-- `/courses/psc-ido`: name and mobile are pre-filled when logged in, and the enrollment is saved to the account. If a student paid before making an account, opening the enroll page on the same phone and logging in links it automatically.
-- Admin login (`/admin`, `/admin/enrollments`) is separate and unchanged. The enrollments table now shows the student's login email under their name.
+- Header button **Login** (becomes **My Course** after login).
+- `/login`: **Log in** / **Create account** tabs: mobile number or email + password, or Continue with Google.
+- After a mock test or chapter quiz, logged-out students see **"Log in free to see your score"**; after logging in they return to their result.
+- `/my-course`: name, mobile/email, PSC IDO status (not enrolled / payment verification pending / verified), log out.
+- `/courses/psc-ido`: name and mobile pre-filled; the enrollment is saved to the account.
+- Admin login (`/admin`, `/admin/enrollments`) is separate and unchanged.

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-// Sign-up and login are the same passwordless flow now.
+// Sign-up lives on the login page.
 export default function RegisterPage() {
-  redirect("/login");
+  redirect("/login?mode=signup");
 }

@@ -4,8 +4,22 @@ import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
-/** Mobile OTP needs an SMS provider in Supabase. Turn on with NEXT_PUBLIC_PHONE_LOGIN=on once it's set up. */
-export const PHONE_LOGIN_ENABLED = (process.env.NEXT_PUBLIC_PHONE_LOGIN || "").toLowerCase() === "on";
+/**
+ * Mobile-number accounts use a password, not SMS. Supabase needs an email for a
+ * password login, so a mobile number is stored as a stand-in address on this
+ * domain. Nothing is ever sent to it (email confirmation must be OFF).
+ */
+export const MOBILE_EMAIL_DOMAIN = "mobile.studywithrootx.in";
+export function mobileToEmail(mobile10: string) {
+  return `91${mobile10}@${MOBILE_EMAIL_DOMAIN}`;
+}
+export function isMobileEmail(email: string | null | undefined) {
+  return !!email && email.toLowerCase().endsWith("@" + MOBILE_EMAIL_DOMAIN);
+}
+/** The real email of a student, or "" for mobile-number accounts. */
+export function realEmail(u: { email?: string | null } | null | undefined) {
+  return u?.email && !isMobileEmail(u.email) ? u.email : "";
+}
 export const isStudentAuthConfigured = isSupabaseConfigured;
 
 export type Student = User;
@@ -46,11 +60,15 @@ export function studentMobile(u: Student | null | undefined): string {
     const d = u.phone.replace(/\D/g, "");
     return d.length === 12 && d.startsWith("91") ? d.slice(2) : d;
   }
-  return ((u.user_metadata || {}) as Record<string, string>).mobile || "";
+  const meta = ((u.user_metadata || {}) as Record<string, string>).mobile;
+  if (meta) return meta;
+  if (isMobileEmail(u.email)) return u.email!.split("@")[0].replace(/^91/, "");
+  return "";
 }
 
 export function studentLabel(u: Student | null | undefined): string {
-  return studentName(u) || u?.email || (u?.phone ? "+" + u.phone : "") || "Student";
+  const m = studentMobile(u);
+  return studentName(u) || realEmail(u) || (m ? "+91 " + m : "") || "Student";
 }
 
 export async function getAccessToken(): Promise<string | null> {

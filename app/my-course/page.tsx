@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, Clock, XCircle, LogOut, Loader2, Mail, Smartphone, BookOpen, Pencil, Check } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { IDO_COURSE, STATUS_LABEL, Enrollment } from "@/lib/course";
-import { authFetch, signOutStudent, studentLabel, studentMobile, studentName, useStudent } from "@/lib/studentAuth";
+import { authFetch, realEmail, signOutStudent, studentLabel, studentMobile, studentName, useStudent } from "@/lib/studentAuth";
 
 export default function MyCoursePage() {
   const router = useRouter();
@@ -65,7 +65,7 @@ export default function MyCoursePage() {
                 <button onClick={() => setEditing(true)} aria-label="Edit name" className="text-slate-400 hover:text-slate-600"><Pencil size={14} /></button>
               </h1>
             )}
-            {user.email && <p className="text-sm text-slate-500 flex items-center gap-1.5 truncate"><Mail size={13} /> {user.email}</p>}
+            {realEmail(user) && <p className="text-sm text-slate-500 flex items-center gap-1.5 truncate"><Mail size={13} /> {realEmail(user)}</p>}
             {mobile && <p className="text-sm text-slate-500 flex items-center gap-1.5"><Smartphone size={13} /> +91 {mobile}</p>}
           </div>
           <button onClick={logout} className="self-start sm:self-center flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">

@@ -16,3 +16,9 @@ export function isMissingColumn(err: { code?: string; message?: string } | null 
   if (!err) return false;
   return err.code === "42703" || err.code === "PGRST204" || /column .* does not exist|could not find the .* column/i.test(err.message || "");
 }
+
+const MOBILE_EMAIL_SUFFIX = "@mobile.studywithrootx.in";
+/** Real email of a student, or null for mobile-number (password) accounts. */
+export function studentRealEmail(u: User): string | null {
+  return u.email && !u.email.toLowerCase().endsWith(MOBILE_EMAIL_SUFFIX) ? u.email : null;
+}
