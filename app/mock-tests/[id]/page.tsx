@@ -8,6 +8,8 @@ import {
   BookmarkCheck, CheckCircle2, AlertTriangle, RefreshCw, BarChart2, LayoutDashboard
 } from "lucide-react";
 import { dbService } from "@/services/db";
+import { useStudent } from "@/lib/studentAuth";
+import ResultLoginGate, { savePendingResult, loadPendingResult, clearPendingResult } from "@/components/ResultLoginGate";
 import { MockTest, QuizQuestion } from "@/types";
 
 export default function MockTestDetailPage({ params }: { params: { id: string } }) {
@@ -22,6 +24,7 @@ export default function MockTestDetailPage({ params }: { params: { id: string } 
   const [loading, setLoading] = useState(true);
   const [timeSpent, setTimeSpent] = useState(0);
   const router = useRouter();
+  const { user: student, loading: studentLoading, configured: loginReady } = useStudent();
 
   useEffect(() => {
     if (!testId) return;
@@ -32,6 +35,13 @@ export default function MockTestDetailPage({ params }: { params: { id: string } 
         return;
       }
       setTest(data);
+      const pending = loadPendingResult(data.id);
+      if (pending) {
+        setSelectedOptions(pending.selectedOptions);
+        setScore(pending.score);
+        setTimeSpent(pending.timeSpent);
+        setIsCompleted(true);
+      }
       setTimeLeft(data.durationMinutes * 60);
 
       // Load bookmarks
@@ -41,6 +51,11 @@ export default function MockTestDetailPage({ params }: { params: { id: string } 
       });
     });
   }, [testId, router]);
+
+  // Once a logged-in student sees the result, forget the saved copy.
+  useEffect(() => {
+    if (isCompleted && test && student) clearPendingResult(test.id);
+  }, [isCompleted, test, student]);
 
   // Timer Tick
   useEffect(() => {
@@ -83,6 +98,7 @@ export default function MockTestDetailPage({ params }: { params: { id: string } 
 
     setScore(computedScore);
     setIsCompleted(true);
+    savePendingResult(test.id, { selectedOptions, score: computedScore, timeSpent });
 
     // Save test results to database
     await dbService.recordTestSubmission(
@@ -112,6 +128,20 @@ export default function MockTestDetailPage({ params }: { params: { id: string } 
   };
 
   // 1. POST TEST COMPLETION VIEW
+
+  // Not logged in: ask for login (Google / email / mobile) before showing the score.
+  if (isCompleted && loginReady && (studentLoading || !student)) {
+    if (studentLoading) return <div className="max-w-4xl mx-auto px-4 py-20 text-center text-slate-400">Loading your result...</div>;
+    return (
+      <ResultLoginGate
+        title={test.title}
+        answered={Object.keys(selectedOptions).length}
+        total={test.totalQuestions}
+        next={`/mock-tests/${testId}`}
+      />
+    );
+  }
+
   if (isCompleted) {
     const accuracy = Math.round((score / test.totalQuestions) * 100);
     const coinsEarned = score * 2;

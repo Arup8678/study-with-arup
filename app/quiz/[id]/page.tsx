@@ -8,6 +8,8 @@ import {
   BookOpen, Bookmark, BookmarkCheck, LayoutDashboard, RefreshCw, BarChart2
 } from "lucide-react";
 import { dbService } from "@/services/db";
+import { useStudent } from "@/lib/studentAuth";
+import ResultLoginGate, { savePendingResult, loadPendingResult, clearPendingResult } from "@/components/ResultLoginGate";
 import { Quiz, QuizQuestion } from "@/types";
 
 export default function QuizDetailPage({ params }: { params: { id: string } }) {
@@ -22,6 +24,7 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
   const [timeSpent, setTimeSpent] = useState(0);
   const router = useRouter();
+  const { user: student, loading: studentLoading, configured: loginReady } = useStudent();
 
   // Load Quiz & User profile bookmarks
   useEffect(() => {
@@ -33,6 +36,13 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
         return;
       }
       setQuiz(data);
+      const pending = loadPendingResult(data.id);
+      if (pending) {
+        setSelectedOptions(pending.selectedOptions);
+        setScore(pending.score);
+        setTimeSpent(pending.timeSpent);
+        setIsCompleted(true);
+      }
       setTimeLeft(data.timeLimitMinutes * 60);
       
       // Load bookmarks
@@ -42,6 +52,11 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
       });
     });
   }, [quizId, router]);
+
+  // Once a logged-in student sees the result, forget the saved copy.
+  useEffect(() => {
+    if (isCompleted && quiz && student) clearPendingResult(quiz.id);
+  }, [isCompleted, quiz, student]);
 
   // Timer Tick
   useEffect(() => {
@@ -84,6 +99,7 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
 
     setScore(computedScore);
     setIsCompleted(true);
+    savePendingResult(quiz.id, { selectedOptions, score: computedScore, timeSpent });
 
     // Save submission records to DB service
     await dbService.recordTestSubmission(
@@ -116,6 +132,20 @@ export default function QuizDetailPage({ params }: { params: { id: string } }) {
   // 1. COMPLETION RESULT VIEW
   const isIdoQuiz = quiz.id.startsWith("ido-");
   const chapterHref = `/exams/psc-ido/prepare/${quiz.subjectId}/${quiz.id}`;
+
+
+  // Not logged in: ask for login (Google / email / mobile) before showing the score.
+  if (isCompleted && loginReady && (studentLoading || !student)) {
+    if (studentLoading) return <div className="max-w-4xl mx-auto px-4 py-20 text-center text-slate-400">Loading your result...</div>;
+    return (
+      <ResultLoginGate
+        title={quiz.title}
+        answered={Object.keys(selectedOptions).length}
+        total={quiz.questionsCount}
+        next={`/quiz/${quizId}`}
+      />
+    );
+  }
 
   if (isCompleted) {
     const accuracy = Math.round((score / quiz.questionsCount) * 100);
