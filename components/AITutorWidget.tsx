@@ -120,7 +120,8 @@ export default function AITutorWidget() {
 
       let aiReplyText = data?.reply;
       if (!aiReplyText) {
-        aiReplyText = generateAIResponse(query);
+        const fallback = generateAIResponse(query);
+        aiReplyText = data?.notice ? `ℹ️ ${data.notice}\n\n${fallback}` : fallback;
       }
 
       const aiMsg: Message = {

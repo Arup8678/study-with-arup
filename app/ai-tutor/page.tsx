@@ -136,7 +136,8 @@ export default function AITutorPage() {
 
       let aiReplyText = data?.reply;
       if (!aiReplyText) {
-        aiReplyText = getFullAIAnswer(query);
+        const fallback = getFullAIAnswer(query);
+        aiReplyText = data?.notice ? `ℹ️ ${data.notice}\n\n${fallback}` : fallback;
       }
 
       const aiMsg: Message = {

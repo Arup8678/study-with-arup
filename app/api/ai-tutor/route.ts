@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const NOT_CONFIGURED_NOTICE =
+  "Arup AI is not connected right now, so here is a built-in answer instead. Live AI answers will be back soon.";
+
 export async function POST(req: NextRequest) {
   try {
     const { prompt } = await req.json();
@@ -7,9 +10,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Prompt is required" }, { status: 400 });
     }
 
-    // Default encoded fallback key for instant out-of-the-box Gemini 2.5 Flash execution
-    const fallbackKey = Buffer.from("QVEuQWI4Uk42TEdpT2FYTDhCdk0tb3JWUV9mYlNySUFBajkwSDFaRzdDenJ6dXg4Z1JlclE=".replace("SDF", "SjF"), "base64").toString("utf-8");
-    const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || fallbackKey;
+    // The key lives only in the server env var GEMINI_API_KEY (set in Vercel).
+    // Never hardcode it and never use a NEXT_PUBLIC_ variable: this repo is public.
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ reply: null, notice: NOT_CONFIGURED_NOTICE }, { status: 503 });
+    }
 
     const systemInstruction = 
       "You are Arup AI Tutor, an expert AI mentor for West Bengal competitive exams: WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat. " +
@@ -20,10 +26,10 @@ export async function POST(req: NextRequest) {
 
     for (const model of models) {
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
         const response = await fetch(url, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
           body: JSON.stringify({
             contents: [
               {
@@ -50,7 +56,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ reply: null, message: "Gemini API call failed." });
+    return NextResponse.json({
+      reply: null,
+      notice: "Arup AI is busy right now, so here is a built-in answer instead. Please try again in a minute.",
+    });
   } catch (error) {
     console.error("AI Tutor Route error:", error);
     return NextResponse.json({ reply: null, error: "Internal error" }, { status: 500 });
