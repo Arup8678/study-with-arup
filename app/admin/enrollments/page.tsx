@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Lock, RefreshCw, Check, X, RotateCcw, Search } from "lucide-react";
 import type { Enrollment, EnrollmentStatus } from "@/lib/course";
+import StudentPasswordReset from "@/components/StudentPasswordReset";
 
 const BADGE: Record<EnrollmentStatus, string> = {
   pending: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
@@ -136,7 +137,7 @@ export default function EnrollmentsAdmin() {
               {shown.map(r => (
                 <tr key={r.id}>
                   <td className="px-4 py-3 whitespace-nowrap text-slate-500">{new Date(r.created_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}</td>
-                  <td className="px-4 py-3">{r.name}</td>
+                  <td className="px-4 py-3">{r.name}{r.email ? <div className="text-[11px] text-slate-400">{r.email}</div> : r.user_id ? <div className="text-[11px] text-slate-400">mobile account</div> : null}</td>
                   <td className="px-4 py-3"><a className="hover:underline" href={`https://wa.me/91${r.phone}`} target="_blank" rel="noopener noreferrer">{r.phone}</a></td>
                   <td className="px-4 py-3 font-mono">{r.utr}</td>
                   <td className="px-4 py-3">{r.amount}</td>
@@ -153,6 +154,7 @@ export default function EnrollmentsAdmin() {
             </tbody>
           </table>
         </div>
+        <StudentPasswordReset />
       </div>
     </div>
   );

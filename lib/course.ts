@@ -33,6 +33,14 @@ export type Enrollment = {
   status: EnrollmentStatus;
   created_at: string;
   reviewed_at?: string | null;
+  user_id?: string | null;
+  email?: string | null;
+};
+
+export const STATUS_LABEL: Record<EnrollmentStatus, string> = {
+  pending: "Payment verification pending",
+  approved: "Verified",
+  rejected: "Payment not verified",
 };
 
 /** UPI UTR / RRN is exactly 12 digits. */
