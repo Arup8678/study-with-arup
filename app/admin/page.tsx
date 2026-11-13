@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Shield, Plus, HelpCircle, BookOpen, Lock, User, Eye, EyeOff, CheckCircle, Trash2 } from "lucide-react";
 import { SUBJECTS_DATA, EXAMS_DATA } from "@/services/mockData";
 
-const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "admin123";
 const LS_TOPICS_KEY   = "admin_topics";
 const LS_QUESTIONS_KEY = "admin_questions";
 const LS_PYQS_KEY      = "admin_pyqs";
@@ -24,6 +23,9 @@ function save(key: string, data: unknown[]) {
 
 export default function AdminPage() {
   const [authed, setAuthed]     = useState(false);
+  const [adminName, setAdminName] = useState("");
+  const [authMsg, setAuthMsg]   = useState("");
+  const [loggingIn, setLoggingIn] = useState(false);
   const [user, setUser]         = useState("");
   const [pw, setPw]             = useState("");
   const [showPw, setShowPw]     = useState(false);
@@ -64,13 +66,33 @@ export default function AdminPage() {
 
   const showToast = (msg: string) => { setToast(msg); setTimeout(() => setToast(""), 3000); };
 
-  const login = () => {
-    if (user.trim() === ADMIN_USERNAME && pw === ADMIN_PASSWORD) {
-      setAuthed(true);
-      setAuthError(false);
-    } else {
-      setAuthError(true);
-    }
+  // Credentials are checked on the server (env vars); nothing secret ships to the browser.
+  useEffect(() => {
+    fetch("/api/admin/session", { cache: "no-store" })
+      .then(r => r.json())
+      .then(d => { if (d?.username) { setAdminName(d.username); setAuthed(true); } })
+      .catch(() => {});
+  }, []);
+
+  const login = async () => {
+    if (!user.trim() || !pw) return;
+    setLoggingIn(true); setAuthMsg("");
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: user, password: pw }),
+      });
+      const d = await res.json();
+      if (res.ok) { setAdminName(d.username); setAuthed(true); setAuthError(false); setPw(""); }
+      else { setAuthError(true); setAuthMsg(d.error || "Invalid username or password."); }
+    } catch { setAuthError(true); setAuthMsg("Network error."); }
+    finally { setLoggingIn(false); }
+  };
+
+  const logout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" }).catch(() => {});
+    setAuthed(false); setAdminName("");
   };
 
   const addTopic = () => {
@@ -123,12 +145,6 @@ export default function AdminPage() {
             <p className="text-xs text-slate-400">Enter admin credentials to manage content</p>
           </div>
 
-          <div className="p-3.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/40 rounded-2xl text-xs text-slate-600 dark:text-slate-300 space-y-1">
-            <p className="font-bold text-blue-600 dark:text-blue-400">Default Credentials:</p>
-            <p>Username: <code className="font-mono bg-blue-100 dark:bg-blue-900/60 px-1.5 py-0.5 rounded text-blue-700 dark:text-blue-300">admin</code></p>
-            <p>Password: <code className="font-mono bg-blue-100 dark:bg-blue-900/60 px-1.5 py-0.5 rounded text-blue-700 dark:text-blue-300">admin123</code></p>
-          </div>
-
           <div className="space-y-4">
             {/* Username Input */}
             <div className="relative">
@@ -158,9 +174,9 @@ export default function AdminPage() {
               </button>
             </div>
 
-            {authError && <p className="text-xs text-red-500">Invalid username or password. Please try again.</p>}
+            {authError && <p className="text-xs text-red-500">{authMsg || "Invalid username or password. Please try again."}</p>}
 
-            <button onClick={login} className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition-all shadow-md shadow-blue-500/20">
+            <button onClick={login} disabled={loggingIn} className="w-full py-3 disabled:opacity-60 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition-all shadow-md shadow-blue-500/20">
               Sign In to Admin
             </button>
           </div>
@@ -189,9 +205,12 @@ export default function AdminPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-extrabold font-heading text-slate-900 dark:text-white flex items-center gap-2"><Shield size={22} className="text-blue-500" /> Admin Panel</h1>
-            <p className="text-xs text-slate-400 mt-1">Logged in as: <strong className="text-blue-500">{ADMIN_USERNAME}</strong></p>
+            <p className="text-xs text-slate-400 mt-1">Logged in as: <strong className="text-blue-500">{adminName}</strong></p>
           </div>
-          <button onClick={() => setAuthed(false)} className="text-xs text-red-500 font-bold hover:underline">Logout</button>
+          <div className="flex items-center gap-3">
+            <Link href="/admin/enrollments" className="text-xs font-bold text-blue-600 hover:underline">Course enrollments →</Link>
+            <button onClick={logout} className="text-xs text-red-500 font-bold hover:underline">Logout</button>
+          </div>
         </div>
 
         {/* Tabs */}

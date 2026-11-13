@@ -1,20 +1,12 @@
 import { NextResponse } from "next/server";
-import { timingSafeEqual } from "crypto";
+import { getAdminFromRequest, isAdminConfigured } from "@/lib/adminAuth";
 import { supabaseAdmin, isEnrollmentDbConfigured, ENROLLMENTS_TABLE } from "@/lib/supabaseAdmin";
 
 export const dynamic = "force-dynamic";
 
-function authorised(req: Request) {
-  const expected = process.env.ADMIN_PASSWORD || "";
-  const given = req.headers.get("x-admin-password") || "";
-  if (!expected) return false;
-  const a = Buffer.from(expected), b = Buffer.from(given);
-  return a.length === b.length && timingSafeEqual(a, b);
-}
-
 function guard(req: Request) {
-  if (!process.env.ADMIN_PASSWORD) return NextResponse.json({ error: "ADMIN_PASSWORD is not set on the server." }, { status: 503 });
-  if (!authorised(req)) return NextResponse.json({ error: "Wrong password." }, { status: 401 });
+  if (!isAdminConfigured()) return NextResponse.json({ error: "Admin login is not set up (ADMIN_USERNAME / ADMIN_PASSWORD)." }, { status: 503 });
+  if (!getAdminFromRequest(req)) return NextResponse.json({ error: "Please log in." }, { status: 401 });
   if (!isEnrollmentDbConfigured || !supabaseAdmin) return NextResponse.json({ error: "Database not configured: set SUPABASE_SERVICE_ROLE_KEY and run supabase/course_enrollments.sql." }, { status: 503 });
   return null;
 }
