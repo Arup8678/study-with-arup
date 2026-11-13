@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const NOT_CONFIGURED_NOTICE =
-  "Arup AI is not connected right now, so here is a built-in answer instead. Live AI answers will be back soon.";
+  "RootX AI is not connected right now, so here is a built-in answer instead. Live AI answers will be back soon.";
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     }
 
     const systemInstruction = 
-      "You are Arup AI Tutor, an expert AI mentor for West Bengal competitive exams: WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat. " +
+      "You are RootX AI Tutor, an expert AI mentor for West Bengal competitive exams: WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat. " +
       "Answer clearly in Bengali or English based on student question. Keep answers concise, highly accurate, with bullet points and key formulas.";
 
     // Active Gemini AI models (gemini-2.5-flash is Google's flagship fast model)
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       reply: null,
-      notice: "Arup AI is busy right now, so here is a built-in answer instead. Please try again in a minute.",
+      notice: "RootX AI is busy right now, so here is a built-in answer instead. Please try again in a minute.",
     });
   } catch (error) {
     console.error("AI Tutor Route error:", error);

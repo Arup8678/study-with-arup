@@ -81,7 +81,7 @@ export default function AITutorWidget() {
     {
       id: "m-welcome",
       sender: "ai",
-      text: "👋 Namaskar! I am **Arup AI Tutor**. Ask me any doubt about WBP Constable, SSC GD, Agniveer Army, WB Panchayat, or any GK & Math question!",
+      text: "👋 Namaskar! I am **RootX AI Tutor**. Ask me any doubt about WBP Constable, SSC GD, Agniveer Army, WB Panchayat, or any GK & Math question!",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -151,13 +151,13 @@ export default function AITutorWidget() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full shadow-2xl hover:scale-105 transition-all group border border-white/20"
-        aria-label="Ask Arup AI Tutor"
+        aria-label="Ask RootX AI Tutor"
       >
         <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center relative">
           <Bot size={20} className="text-white animate-pulse" />
           <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-slate-900" />
         </div>
-        <span className="font-extrabold text-xs tracking-wide">Ask Arup AI</span>
+        <span className="font-extrabold text-xs tracking-wide">Ask RootX AI</span>
         <Sparkles size={14} className="text-amber-300 group-hover:rotate-12 transition-transform" />
       </button>
 
@@ -173,7 +173,7 @@ export default function AITutorWidget() {
               </div>
               <div>
                 <div className="flex items-center gap-1.5">
-                  <h3 className="font-extrabold text-white text-sm">Arup AI Tutor</h3>
+                  <h3 className="font-extrabold text-white text-sm">RootX AI Tutor</h3>
                   <span className="px-2 py-0.5 rounded-full text-[9px] bg-blue-500/20 text-blue-400 font-bold border border-blue-500/30 flex items-center gap-1">
                     <Zap size={9} /> Gemini AI
                   </span>
@@ -235,7 +235,7 @@ export default function AITutorWidget() {
             {isTyping && (
               <div className="flex items-center gap-2 text-slate-400 text-xs py-2">
                 <Bot size={16} className="text-blue-500 animate-spin" />
-                <span>Arup AI is thinking...</span>
+                <span>RootX AI is thinking...</span>
               </div>
             )}
           </div>
