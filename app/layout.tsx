@@ -13,9 +13,10 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://studywithrootx.in"),
   title: "Study With RootX | West Bengal Competitive Exam Prep",
-  description: "Prepare smart for WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with Study With RootX AI Assistant.",
-  keywords: ["WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With RootX", "AI Tutor"],
+  description: "Prepare smart for WBPSC IDO, WBP Constable, SSC GD Constable, Agniveer Army, and WB Panchayat exams with notes, mock tests and the Study With RootX AI Assistant.",
+  keywords: ["WBPSC IDO", "PSC IDO", "Industrial Development Officer", "WBP Constable", "SSC GD", "Agniveer Army", "WB Panchayat exam", "Study With RootX", "studywithrootx", "AI Tutor"],
   authors: [{ name: "Study With RootX Team" }],
   manifest: "/manifest.json",
   robots: "index, follow",
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
     title: "Study With RootX | West Bengal Exam Prep Platform",
     description: "The best preparation portal for WBP Constable, SSC GD, Agniveer Army, and WB Panchayat exams.",
     siteName: "Study With RootX",
+    url: "https://studywithrootx.in",
     type: "website",
   },
 };
@@ -37,9 +39,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        <meta name="google-site-verification" content="QPmC59486DdFsTDZw3g0GstUJ1U5phBQ-v-rzljXnb0" />
-      </head>
       <body className="antialiased min-h-screen flex flex-col font-body">
         <ThemeProvider>
           <PWARegister />
