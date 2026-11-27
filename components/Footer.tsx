@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-400 dark:bg-slate-950 border-t border-slate-800 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
 
           {/* Brand Info */}
           <div className="space-y-3">
@@ -50,6 +50,21 @@ export default function Footer() {
               <li><Link href="/exams/wb-panchayat" className="hover:text-white transition-colors">WB Panchayat</Link></li>
               <li><Link href="/exams/psc-miscellaneous" className="hover:text-white transition-colors">PSC Miscellaneous</Link></li>
               <li><Link href="/exams/psc-ido" className="hover:text-white transition-colors">PSC IDO</Link></li>
+            </ul>
+          </div>
+
+          {/* Courses & Spiritual */}
+          <div className="space-y-3">
+            <h4 className="font-bold text-white text-sm">Courses &amp; Spiritual</h4>
+            <ul className="grid grid-cols-2 gap-2 text-xs">
+              <li><Link href="/courses/ai" className="hover:text-white transition-colors">AI</Link></li>
+              <li><Link href="/courses/cybersecurity" className="hover:text-white transition-colors">Cybersecurity</Link></li>
+              <li><Link href="/courses/web-development" className="hover:text-white transition-colors">Web Development</Link></li>
+              <li><Link href="/courses/psc-ido" className="hover:text-white transition-colors">PSC IDO Course</Link></li>
+              <li><Link href="/spiritual/meditation" className="hover:text-white transition-colors">Meditation</Link></li>
+              <li><Link href="/spiritual/yoga" className="hover:text-white transition-colors">Yoga</Link></li>
+              <li><Link href="/spiritual/books" className="hover:text-white transition-colors">Spiritual Books</Link></li>
+              <li><Link href="/spiritual/osho" className="hover:text-white transition-colors">Osho</Link></li>
             </ul>
           </div>
 

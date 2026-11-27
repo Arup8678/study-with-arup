@@ -9,6 +9,8 @@ import { useTheme } from "./ThemeProvider";
 const NAV_LINKS = [
   { href: "/",               label: "Home" },
   { href: "/exams",          label: "Exams" },
+  { href: "/courses",        label: "Courses" },
+  { href: "/spiritual",      label: "🕉️ Spiritual" },
   { href: "/ai-tutor",        label: "🤖 AI Tutor" },
   { href: "/current-affairs", label: "Current Affairs" },
   { href: "/contact",        label: "Contact Us" },
@@ -57,7 +59,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                className={`px-3 lg:px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${
                   active
                     ? solidBg
                       ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"

@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import IdoCourseBanner from "@/components/IdoCourseBanner";
 import { IDO_COURSE } from "@/lib/course";
+import { TECH_COURSES, SPIRITUAL_SECTIONS } from "@/lib/catalog";
 
 const EXAM_PILLS = [
   { id: "wbp-constable",  label: "WBP Constable",  emoji: "🛡️" },
@@ -225,6 +226,61 @@ export default function HomePage() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TECH COURSES ─────────────────────────── */}
+      <section id="tech-courses" className="px-4 sm:px-6 pb-16">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-slate-900 dark:text-white">💻 Tech Skill Courses</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400">AI, Cybersecurity &amp; Web Development • চাকরির জন্য প্রযুক্তি দক্ষতা</p>
+            </div>
+            <Link href="/courses" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">All courses →</Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {TECH_COURSES.map(c => (
+              <Link
+                key={c.slug}
+                href={`/courses/${c.slug}`}
+                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.gradient} text-white p-6 shadow-lg hover:-translate-y-1 transition-all`}
+              >
+                <div className="flex items-start justify-between">
+                  <span className="text-4xl">{c.emoji}</span>
+                  {c.status === "coming-soon" && (
+                    <span className="px-2.5 py-1 rounded-full bg-yellow-300 text-slate-900 text-[10px] font-black uppercase tracking-widest">Coming soon</span>
+                  )}
+                </div>
+                <h3 className="mt-4 text-lg font-extrabold font-heading leading-snug">{c.title}</h3>
+                <p className="text-white/80 text-sm">{c.tagline}</p>
+                <span className="mt-4 inline-block text-sm font-bold group-hover:underline">View syllabus →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SPIRITUAL ─────────────────────────── */}
+      <section id="spiritual" className="px-4 sm:px-6 pb-20">
+        <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl">
+          <div className="bg-gradient-to-br from-emerald-600 via-teal-600 to-indigo-700 px-6 sm:px-10 py-8 text-white">
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading">🕉️ Spiritual Path</h2>
+            <p className="text-white/85 text-sm sm:text-base">আধ্যাত্মিক পথ — Meditation, Yoga and a free library of the world&apos;s great scriptures</p>
+          </div>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8">
+            {SPIRITUAL_SECTIONS.map(s => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className={`group rounded-2xl bg-gradient-to-br ${s.gradient} border border-slate-200/80 dark:border-slate-700/60 p-5 hover:shadow-md hover:-translate-y-0.5 transition-all`}
+              >
+                <div className="text-3xl">{s.emoji}</div>
+                <h3 className="mt-2 font-bold text-slate-900 dark:text-white">{s.title} <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">· {s.titleBn}</span></h3>
+                <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{s.text}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
