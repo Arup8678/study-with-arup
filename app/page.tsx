@@ -269,7 +269,7 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl font-extrabold font-heading">🕉️ Spiritual Path</h2>
             <p className="text-white/85 text-sm sm:text-base">আধ্যাত্মিক পথ — Meditation, Yoga and a free library of the world&apos;s great scriptures</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 p-6 sm:p-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8">
             {SPIRITUAL_SECTIONS.map(s => (
               <Link
                 key={s.href}

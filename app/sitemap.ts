@@ -45,6 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/spiritual/meditation",
     "/spiritual/yoga",
     "/spiritual/books",
+    "/spiritual/osho",
     "/ai-tutor",
     "/current-affairs",
     "/contact",

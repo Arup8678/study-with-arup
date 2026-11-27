@@ -160,6 +160,14 @@ export const SPIRITUAL_SECTIONS = [
     text: "Read the Gita, Upanishads, Quran, Dhammapada, Guru Granth Sahib and great philosophers, free and online.",
     gradient: "from-emerald-500/10 to-teal-500/10",
   },
+  {
+    href: "/spiritual/osho",
+    title: "Osho",
+    titleBn: "ওশো",
+    emoji: "🌸",
+    text: "Osho's talks, books and meditations, with links to the official Osho library, videos and podcasts.",
+    gradient: "from-rose-500/10 to-fuchsia-500/10",
+  },
 ];
 
 export type Practice = {
@@ -502,4 +510,59 @@ export const BOOK_SHELVES: BookShelf[] = [
       },
     ],
   },
+];
+
+// ── Osho ─────────────────────────────────────────────────────
+// Osho's books, talks and videos are copyrighted (Osho International Foundation).
+// Link ONLY to official sources. Do not host or copy book text, PDFs or videos.
+
+export const OSHO_ABOUT =
+  "Osho (1931–1990), born Chandra Mohan Jain in Kuchwada, Madhya Pradesh, was an Indian mystic and teacher whose talks cover meditation, love, awareness, creativity and freedom. His ideas are widely admired and also debated, so read with your own judgement.";
+
+export const OSHO_OFFICIAL: { title: string; text: string; emoji: string; links: BookLink[] }[] = [
+  {
+    title: "Books & Osho Library",
+    emoji: "📖",
+    text: "Osho's talks are published as books. The official Osho Library lets you read online, and the official site lists all titles.",
+    links: [
+      { label: "Official Osho website (osho.com)", href: "https://www.osho.com/" },
+      { label: "Osho Library (official, read online)", href: "https://www.osho.com/library" },
+    ],
+  },
+  {
+    title: "Videos & Talks",
+    emoji: "🎥",
+    text: "Watch talks and meditation videos on the official Osho International YouTube channel.",
+    links: [
+      { label: "Official Osho videos on YouTube", href: "https://www.youtube.com/results?search_query=Osho+International+official+channel" },
+    ],
+  },
+  {
+    title: "Audio & Meditations",
+    emoji: "🎧",
+    text: "Listen to discourses and try Osho's active meditations such as Dynamic and Kundalini.",
+    links: [
+      { label: "Osho meditations (official site)", href: "https://www.osho.com/meditate" },
+    ],
+  },
+];
+
+export const OSHO_TOPICS = [
+  "Meditation & awareness",
+  "Love & relationships",
+  "Zen & Buddhism",
+  "Tantra & Yoga",
+  "Upanishads & Gita talks",
+  "Creativity & freedom",
+  "Courage & fear",
+  "Sufi & Hasidic stories",
+];
+
+export const OSHO_STARTER_BOOKS = [
+  { title: "The Book of Secrets", about: "Talks on 112 meditation techniques from the Vigyan Bhairav Tantra." },
+  { title: "Meditation: The First and Last Freedom", about: "A practical guide to meditation methods." },
+  { title: "Courage", about: "Living with fear and the unknown." },
+  { title: "Love, Freedom, Aloneness", about: "Relationships, freedom and being yourself." },
+  { title: "Creativity", about: "Unleashing your inner potential." },
+  { title: "The Mustard Seed", about: "Talks on the sayings of Jesus from the Gospel of Thomas." },
 ];

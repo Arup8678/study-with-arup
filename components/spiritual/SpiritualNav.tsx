@@ -8,6 +8,7 @@ const TABS = [
   { href: "/spiritual/meditation", label: "🧘 Meditation" },
   { href: "/spiritual/yoga", label: "🌅 Yoga" },
   { href: "/spiritual/books", label: "📚 Books" },
+  { href: "/spiritual/osho", label: "🌸 Osho" },
 ];
 
 export default function SpiritualNav() {

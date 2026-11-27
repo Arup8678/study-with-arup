@@ -64,6 +64,7 @@ export default function Footer() {
               <li><Link href="/spiritual/meditation" className="hover:text-white transition-colors">Meditation</Link></li>
               <li><Link href="/spiritual/yoga" className="hover:text-white transition-colors">Yoga</Link></li>
               <li><Link href="/spiritual/books" className="hover:text-white transition-colors">Spiritual Books</Link></li>
+              <li><Link href="/spiritual/osho" className="hover:text-white transition-colors">Osho</Link></li>
             </ul>
           </div>
 
