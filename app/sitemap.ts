@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://study-with-arup.vercel.app";
+  const baseUrl = "https://studywithrootx.in";
 
   const staticRoutes = [
     "",
